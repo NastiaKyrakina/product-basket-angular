@@ -1,0 +1,28 @@
+.result-top-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 10px;
+
+  .basket-img {
+    width: 150px;
+  }
+
+  .right-details {
+    span {
+      display: inline-block;
+      margin-right: 15px;
+      padding-bottom: 15px;
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+.optimization-pie {
+  padding: 0 20px;
+  display: block;
+  overflow: hidden;
+}
+

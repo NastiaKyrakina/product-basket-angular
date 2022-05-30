@@ -1,0 +1,56 @@
+<div class="products-table-header">
+  <div class="mat-expansion-panel-header-title">Назва продукту</div>
+  <div class="mat-expansion-panel-header-description">
+    <div class="product-details">
+      <span>Кількість / Вага</span>
+      <span>Вартість</span>
+    </div>
+  </div>
+</div>
+<mat-expansion-panel *ngFor="let product of products">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ product.name }}
+    </mat-panel-title>
+    <mat-panel-description>
+      <div class="product-details">
+        <span>{{ product | productAmount}}</span>
+        <span>{{ product | productPrice}}</span>
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="product-state-row">
+    <div class="product-state-col">
+      Стан
+    </div>
+    <div class="product-state-col size2">
+      Калорійність на 100 г продукту
+    </div>
+    <div class="product-state-col">
+      Білки
+    </div>
+    <div class="product-state-col">
+      Жири
+    </div>
+    <div class="product-state-col">
+      Вуглеводи
+    </div>
+  </div>
+  <div *ngFor="let state of product.states" class="product-state-row">
+    <div class="product-state-col">
+      {{ state | productState }}
+    </div>
+    <div class="product-state-col size2">
+      {{ state | productEnergy }}
+    </div>
+    <div class="product-state-col">
+      {{ state | productComponent : 'proteins' }}
+    </div>
+    <div class="product-state-col">
+      {{ state | productComponent : 'fats' }}
+    </div>
+    <div class="product-state-col">
+      {{ state | productComponent : 'carbohydrates' }}
+    </div>
+  </div>
+</mat-expansion-panel>

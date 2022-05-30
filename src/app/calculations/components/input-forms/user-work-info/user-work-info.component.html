@@ -1,0 +1,4 @@
+<h3 class="headline">Оберіть характер трудової діяльності</h3>
+<app-work-type-table [selectedWorkType]="userForm.value.workType"
+                     (workTypeSelected)="selectWorkType($event)">
+</app-work-type-table>

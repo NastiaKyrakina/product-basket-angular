@@ -1,0 +1,27 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  max-width: 370px;
+  border: none;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+.mat-radio-button {
+  padding-bottom: 1.34375em;
+}

@@ -1,0 +1,13 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let category of productsByCategories | keyvalue">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ category.key }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      <app-products-list [products]="category.value"></app-products-list>
+    </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
+

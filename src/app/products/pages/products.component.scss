@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  padding: 20px 25px;
+}
+
+
+.top-row {
+  display: flex;
+
+  .description-block {
+    flex: 1;
+    margin-right: 15px;
+  }
+
+  app-fa-icon {
+    color: lemonchiffon;
+  }
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-input {
+  flex: 1;
+  margin-right: 15px;
+}

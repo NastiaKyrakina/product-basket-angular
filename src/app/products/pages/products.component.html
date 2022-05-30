@@ -1,0 +1,23 @@
+<h2>Список продуктів для розрахунку</h2>
+<div class="top-row">
+<div class="description-block">
+  <p>Натисніть на рядок для отримання детальної інформації щодо калорійності та пищевої цінності продукту</p>
+  <p>Для редагування  кількості та вартісті продукту наведіть на рядок та натисніть на іконку <app-fa-icon [name]="ICONS.edit" [size]="1"></app-fa-icon></p>
+  <p>Для виключення продукту зі списку натисніть на іконку <app-fa-icon [name]="ICONS.remove" [size]="1"></app-fa-icon></p>
+</div>
+  <div>
+    <button mat-raised-button color="warn">Список обмежень</button>
+  </div>
+</div>
+<div class="search-row">
+  <mat-form-field class="search-input" appearance="fill">
+    <mat-label>Пошук за назвою продукта</mat-label>
+    <input matInput type="text" [value]="query" (input)="onSearch($event)">
+    <button *ngIf="query" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <button mat-raised-button color="accent" (click)="openAddProductDialog()">Додати продукт <app-fa-icon [name]="ICONS.cartAdd" [size]="1"></app-fa-icon></button>
+</div>
+
+<app-products-table [productsByCategories]="productsByCategories"></app-products-table>

@@ -1,0 +1,17 @@
+<fieldset [formGroup]="userForm" class="fields">
+  <h3 class="headline">Введіть власні характеристики</h3>
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Введіть зріст</mat-label>
+    <input formControlName="height" matInput required type="number" class="example-right-align" placeholder="0">
+    <span matSuffix>&nbsp;м</span>
+  </mat-form-field>
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Введіть вагу</mat-label>
+    <input formControlName="weight" matInput required type="number" class="example-right-align" placeholder="0">
+    <span matSuffix>&nbsp;м</span>
+  </mat-form-field>
+  <mat-radio-group aria-label="Стать" formControlName="sex">
+    <mat-radio-button value="male">Чоловіча</mat-radio-button>
+    <mat-radio-button value="female">Жіноча</mat-radio-button>
+  </mat-radio-group>
+</fieldset>

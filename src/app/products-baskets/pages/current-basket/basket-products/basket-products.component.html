@@ -1,0 +1,12 @@
+<div class="basket-header">
+  <button mat-button color="accent" (click)="printList()">
+    <app-fa-icon [name]="ICONS.print"></app-fa-icon>
+  </button>
+  <div class="download-formats">
+    <span>Завантажити у форматі</span>
+    <button *ngFor="let format of DOWNLOAD_FORMATS " mat-button class="download-button">
+      <img src="assets/images/download-formats/{{format}}-format.png" alt="Download file in {{format}}">
+    </button>
+  </div>
+</div>
+<app-products-list id="products-list" [products]="products"></app-products-list>

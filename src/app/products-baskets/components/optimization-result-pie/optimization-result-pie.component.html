@@ -1,0 +1,18 @@
+<ngx-charts-pie-chart
+  [view]="view"
+  [results]="chartData"
+  scheme="vivid"
+  [gradient]="gradient"
+  [legend]="showLegend"
+  [legendTitle]="legendTitle"
+  [labels]="showLabels"
+  [doughnut]="isDoughnut"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)">
+  <ng-template #tooltipTemplate let-model="model">
+    <div style="text-align: left;">
+      <p> {{ model.name }}: {{ model.value }} %</p>
+    </div>
+  </ng-template>
+</ngx-charts-pie-chart>

@@ -1,0 +1,26 @@
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-form-field {
+  margin-top: 16px;
+}
+
+.stepper-buttons {
+  max-width: 370px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.back-forward {
+  transform: rotate(180deg);
+}
+
+.loader-cover {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
