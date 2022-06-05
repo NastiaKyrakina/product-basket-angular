@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Select } from '@ngxs/store';
+import { CalculationsState, ICalculationsState } from '../state/baskets/calculations/calculations.state';
 
 @Component({
   selector: 'app-main-panel',
@@ -9,6 +11,8 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./main-panel.component.scss']
 })
 export class MainPanelComponent {
+
+  @Select(CalculationsState.isActive) isActive$!: Observable<boolean>;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(

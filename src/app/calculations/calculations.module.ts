@@ -23,6 +23,7 @@ import { LastStepComponent } from './components/input-forms/last-step/last-step.
 import {
   OptimizationProcessLoaderModule
 } from '../shared-modules/optimization-process-loader/optimization-process-loader.component';
+import { FaIconModule } from '../shared-modules/fa-icon/fa-icon.component';
 
 
 @NgModule({
@@ -35,21 +36,22 @@ import {
     WorkTypeTableComponent,
     LastStepComponent
   ],
-  imports: [
-    CommonModule,
-    CalculationsRoutingModule,
-    MatStepperModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
-    ControlWrapperModule,
-    MatTableModule,
-    MatRadioModule,
-    MatListModule,
-    OptimizationProcessLoaderModule,
-  ]
+    imports: [
+        CommonModule,
+        CalculationsRoutingModule,
+        MatStepperModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatIconModule,
+        ControlWrapperModule,
+        MatTableModule,
+        MatRadioModule,
+        MatListModule,
+        OptimizationProcessLoaderModule,
+        FaIconModule,
+    ]
 })
 export class CalculationsModule { }

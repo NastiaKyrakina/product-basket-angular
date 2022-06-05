@@ -1,8 +1,15 @@
 .fields {
   display: flex;
   flex-direction: column;
-  max-width: 370px;
   border: none;
+}
+
+.legend {
+  margin-bottom: 20px;
+}
+
+.radio-group-label {
+  margin-bottom: 11px;
 }
 
 .example-right-align {
@@ -24,4 +31,19 @@ input.example-right-align {
 
 .mat-radio-button {
   padding-bottom: 1.34375em;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+
+    &:first-child {
+      margin-right: 45px;
+    }
+  }
 }

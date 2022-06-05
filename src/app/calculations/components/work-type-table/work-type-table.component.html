@@ -1,17 +1,17 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 work-type-table">
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef>Type</th>
-    <td mat-cell *matCellDef="let element">{{element.title}}</td>
+  <ng-container matColumnDef="icon">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <app-fa-icon [name]="element.icon"></app-fa-icon>
+    </td>
   </ng-container>
-
   <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef>Description</th>
+    <th mat-header-cell *matHeaderCellDef>Фізична активність</th>
     <td mat-cell *matCellDef="let element">{{element.description}}</td>
   </ng-container>
-
   <tr mat-row
-    (click)="onRowClick(row.title)"
-    [ngClass]="{'selected-row': selectedWorkType === row.title}"
+    (click)="onRowClick(row.value)"
+    [ngClass]="{'selected-row': selectedActivityLevel === row.value}"
     *matRowDef="let row; columns: displayedColumns;">
   </tr>
 </table>

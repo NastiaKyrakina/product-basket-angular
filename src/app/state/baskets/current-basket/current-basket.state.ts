@@ -2,11 +2,13 @@ import { IOptimizationGeneral } from '../../../../models/optimization';
 import { IProduct, IShopProduct } from '../../../../models/products';
 import { stateNames } from '../../consts/state-names';
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { InitBasketState, OptimizeBasketAndSetAsCurrent, SetAsCurrentBasket } from './current-basket.actions';
 import { Observable, tap } from 'rxjs';
 import { OptimizationService } from '../../../core/servers/optimization.service';
 import { LocalStorageService } from '../../../core/servers/local-storage.service';
+import { ICalculationsState } from '../calculations/calculations.state';
+import { ResetFormData } from '../calculations/calculations.actions';
 
 export interface ICurrentBasketState {
   basketID?: number | null;
@@ -48,6 +50,7 @@ export class CurrentBasketState {
   constructor(
     private optimizationService: OptimizationService,
     private localStorageService: LocalStorageService,
+    private store: Store,
   ) {
 
   }
@@ -63,11 +66,14 @@ export class CurrentBasketState {
 
   @Action(OptimizeBasketAndSetAsCurrent)
   optimizeBasketAndSetAsCurrent(ctx: StateContext<ICurrentBasketState>, action: OptimizeBasketAndSetAsCurrent): Observable<any> {
-    return this.optimizationService.optimizeProductsList()
+    const formData = this.store.selectSnapshot<ICalculationsState>(store => store[stateNames.calculations]);
+
+    return this.optimizationService.optimizeProductsList(formData)
       .pipe(
+        tap(() => ctx.dispatch(new ResetFormData())),
         tap(
           res => ctx.dispatch(new SetAsCurrentBasket(res))
-        )
+        ),
       );
   }
 

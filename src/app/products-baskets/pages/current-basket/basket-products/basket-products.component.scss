@@ -6,6 +6,15 @@
 .basket-header {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #8f8f8aed;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
+
+.download-formats {
+  display: flex;
+  align-items: flex-end;
 }
 
 .download-button {

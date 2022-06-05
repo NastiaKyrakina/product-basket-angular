@@ -1,17 +1,29 @@
 <fieldset [formGroup]="userForm" class="fields">
-  <h3 class="headline">Введіть власні характеристики</h3>
-  <mat-form-field appearance="fill" floatLabel="always">
-    <mat-label>Введіть зріст</mat-label>
-    <input formControlName="height" matInput required type="number" class="example-right-align" placeholder="0">
-    <span matSuffix>&nbsp;м</span>
-  </mat-form-field>
-  <mat-form-field appearance="fill" floatLabel="always">
-    <mat-label>Введіть вагу</mat-label>
-    <input formControlName="weight" matInput required type="number" class="example-right-align" placeholder="0">
-    <span matSuffix>&nbsp;м</span>
-  </mat-form-field>
-  <mat-radio-group aria-label="Стать" formControlName="sex">
-    <mat-radio-button value="male">Чоловіча</mat-radio-button>
-    <mat-radio-button value="female">Жіноча</mat-radio-button>
-  </mat-radio-group>
+  <legend class="headline legend">Введіть власні характеристики (стать, вік, вагу та зріст) для рохрахунку добового раціону калорій</legend>
+  <div class="row">
+    <div class="column">
+      <label class="radio-group-label">Стать</label>
+      <mat-radio-group aria-label="Стать" formControlName="sex">
+        <mat-radio-button [value]="Sex.Male">Чоловіча</mat-radio-button>
+        <mat-radio-button [value]="Sex.Female">Жіноча</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Вік</mat-label>
+        <input formControlName="years" matInput required type="number" class="example-right-align" placeholder="0">
+        <span matSuffix>&nbsp;років</span>
+      </mat-form-field>
+    </div>
+    <div class="column">
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Зріст</mat-label>
+        <input formControlName="height" matInput required type="number" class="example-right-align" placeholder="0">
+        <span matSuffix>&nbsp;м</span>
+      </mat-form-field>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Вага</mat-label>
+        <input formControlName="weight" matInput required type="number" class="example-right-align" placeholder="0">
+        <span matSuffix>&nbsp;м</span>
+      </mat-form-field>
+    </div>
+  </div>
 </fieldset>

@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
 import { CurrentBasketState } from './state/baskets/current-basket/current-basket.state';
+import { CalculationsState } from './state/baskets/calculations/calculations.state';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { CurrentBasketState } from './state/baskets/current-basket/current-baske
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([CurrentBasketState], {
+    NgxsModule.forRoot([CurrentBasketState, CalculationsState], {
       developmentMode: !environment.production
     }),
     BrowserAnimationsModule,

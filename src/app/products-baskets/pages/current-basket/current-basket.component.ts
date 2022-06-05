@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { CurrentBasketState, ICurrentBasketState } from '../../../state/baskets/current-basket/current-basket.state';
-import { IProduct, IShopProduct } from '../../../../models/products';
+import { IShopProduct } from '../../../../models/products';
 import { IOptimizationGeneral } from '../../../../models/optimization';
 import { InitBasketState } from '../../../state/baskets/current-basket/current-basket.actions';
 

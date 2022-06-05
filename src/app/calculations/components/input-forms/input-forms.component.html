@@ -1,10 +1,6 @@
 <form *ngIf="!optimizationInProgress; else optimizationLoader" [formGroup]="firstFormGroup">
   <mat-stepper linear #stepper>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <app-last-step (optimizeProductsClick)="optimizeProductBasket()"></app-last-step>
-  </mat-step>
-  <mat-step [stepControl]="basketForm" [editable]="isEditable">
+    <mat-step [stepControl]="basketForm" [editable]="isEditable">
       <ng-template matStepLabel>Термін та вартість</ng-template>
       <app-basket-info [basketForm]="basketForm"></app-basket-info>
       <div class="stepper-buttons">
@@ -16,8 +12,8 @@
           <mat-icon>forward</mat-icon>
         </button>
       </div>
-  </mat-step>
-  <mat-step [stepControl]="userForm" [editable]="isEditable">
+    </mat-step>
+    <mat-step [stepControl]="userForm" [editable]="isEditable">
       <ng-template matStepLabel>Дані користувача</ng-template>
       <app-user-private-info [userForm]="userForm"></app-user-private-info>
       <div class="stepper-buttons">
@@ -35,29 +31,37 @@
           <mat-icon class="back-forward">forward</mat-icon>
         </button>
       </div>
-  </mat-step>
-  <mat-step [stepControl]="userWorkForm" [editable]="isEditable">
-    <form [formGroup]="calculationsGroup">
-      <ng-template matStepLabel>Характер діяльності</ng-template>
-      <app-user-work-info [userForm]="userWorkForm"></app-user-work-info>
-      <div class="stepper-buttons">
-        <button matStepperNext
-                mat-mini-fab
-                color="warn"
-                aria-label="Forward icon"
-                [disabled]="userWorkForm.invalid">
-          <mat-icon>forward</mat-icon>
-        </button>
-        <button matStepperPrevious
-                mat-mini-fab
-                color="primary"
-                aria-label="Back icon">
-          <mat-icon class="back-forward">forward</mat-icon>
-        </button>
-      </div>
-    </form>
-  </mat-step>
-</mat-stepper>
+    </mat-step>
+    <mat-step [stepControl]="userWorkForm" [editable]="isEditable">
+      <form [formGroup]="calculationsGroup">
+        <ng-template matStepLabel>Характер діяльності</ng-template>
+        <app-user-work-info [userForm]="userWorkForm"></app-user-work-info>
+        <div class="stepper-buttons">
+          <button mat-mini-fab
+                  color="warn"
+                  aria-label="Forward icon"
+                  [disabled]="userWorkForm.invalid"
+                  (click)="goForward(stepper)">
+            <mat-icon>forward</mat-icon>
+          </button>
+          <button matStepperPrevious
+                  mat-mini-fab
+                  color="primary"
+                  aria-label="Back icon">
+            <mat-icon class="back-forward">forward</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step (interacted)="onDoneInteract()">
+      <ng-template matStepLabel>Done</ng-template>
+      <app-last-step [energyPerDay]="energyPerDay"
+                     [userMIT]="userMIT"
+                     [basketForm]="basketForm"
+                     (optimizeProductsClick)="optimizeProductBasket()">
+      </app-last-step>
+    </mat-step>
+  </mat-stepper>
 </form>
 
 <ng-template #optimizationLoader>

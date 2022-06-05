@@ -1,34 +1,30 @@
-export const WORK_TYPE_DESCRIPTION = [
+import { PhysicalActivityLevel } from '../../calculations/models/calculations';
+
+export const PHYSIC_LEVELS = [
   {
-    title: 'Дуже легка',
-    description: 'Робота розумової праці та інша з переважно сидячим способом життя'
+    value: PhysicalActivityLevel.lowest,
+    description: 'Немає фізичних навантажень, сидяча робота',
+    icon: 'fa-chair'
   },
   {
-    title: 'Легка',
-    description: 'Обслуговуючий персонал, домогосподарки, лікарі, крім хірургів, педагоги'
+    value: PhysicalActivityLevel.low,
+    description: 'Виконання невеликих пробіжок або легкої гімнастики 1-3 рази в тиждень',
+    icon: 'fa-walking',
+
   },
   {
-    title: 'Середньоважка',
-    description: 'Робітники-верстатники, працівники комунально-побутових служб, харчової промисловості, лікарі-хірурги'
+    value: PhysicalActivityLevel.medium,
+    description: 'Заняття спортом із середніми навантаженнями 3-5 разів на тиждень',
+    icon: 'fa-running',
   },
   {
-    title: 'Важка',
-    description: 'Будівельники, металурги, робітники нафтогазової промисловості'
+    value: PhysicalActivityLevel.high,
+    description: 'Повноцінні тренування 6-7 разів на тиждень',
+    icon: 'fa-skating'
   },
   {
-    title: 'Дуже важка',
-    description: 'Муляри, землекопи, чорнороби, шахтарі'
+    value: PhysicalActivityLevel.highest,
+    description: 'Робота пов\'язана з фізичною працею. Тренування 2 рази в день з включання в програму тренувань силових вправ',
+    icon: 'fa-dumbbell'
   },
 ];
-
-export const LOAD_LEVEL = [
-  {
-    title: 'Малий',
-  },
-  {
-    title: 'Середній',
-  },
-  {
-    title: 'Тяжкий',
-  },
-]

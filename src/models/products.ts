@@ -50,3 +50,17 @@ export class ShopProduct implements IShopProduct {
 export interface ICategoryProducts extends ICategory {
   products: ShopProduct;
 }
+
+export enum Comparators {
+  'EQ' = 'EQ',
+  'GT' = 'GT',
+  'LT' = 'LT',
+}
+
+export interface IRestrictions {
+  id: number;
+  product: IProduct;
+  amount: number;
+  comparators: Comparators
+  unit: string;
+}

@@ -1,3 +1,4 @@
 export const stateNames = {
-  currentBasket: 'currentBasket'
+  currentBasket: 'currentBasket',
+  calculations: 'calculations',
 }

@@ -1,9 +1,9 @@
 <h3 class="headline">Продуктова корзина буде розрахована за наступними даними:</h3>
 <ul class="item-list">
-  <li>Період: <span class="value">1 тиждень</span></li>
-  <li>Масимальна вартість корзини: <span class="value">2300 грн.</span></li>
-  <li>Індекс маси тіла: <span class="value">18,5</span></li>
-  <li>Рекомендована кількість кілокалорій на добу: <span class="value">1200 ккал.</span></li>
+  <li>Період: <span class="value">{{ basketForm.value.term }}</span></li>
+  <li>Масимальна вартість корзини: <span class="value">{{ basketForm.value.maxSum }} грн.</span></li>
+  <li>Індекс маси тіла: <span class="value">{{ userMIT }}</span></li>
+  <li>Рекомендована кількість кілокалорій на добу: <span class="value">{{ energyPerDay }} ккал.</span></li>
 </ul>
 <div class="button-block">
   <a mat-raised-button routerLink="/products" [queryParams]="{from: 'calculations'}">

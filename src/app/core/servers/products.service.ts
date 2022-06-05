@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IShopProduct, ShopProduct } from '../../../models/products';
+import { IRestrictions, IShopProduct, ShopProduct } from '../../../models/products';
 import { map } from 'rxjs/operators';
 import { IOptimizationResponse } from '../../../models/http-api';
 
@@ -20,6 +20,10 @@ export class ProductsService {
 
   getProducts(): Observable<Array<IShopProduct>> {
     return this.http.get<Array<IShopProduct>>(`${environment.apiURL}products/shop-products`);
+  }
+
+  getRestrictions(): Observable<Array<IRestrictions>> {
+    return this.http.get<Array<IRestrictions>>(`${environment.apiURL}products/restrictions`);
   }
 
   getProductsByCategories(): Observable<Record<string, ShopProduct[]>> {
