@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from './core/servers/products.service';
+import { InitAuthState } from './state/user/user.actions';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,11 @@ export class AppComponent implements OnInit {
   title = 'product-basket';
 
   constructor(
-    private productsService: ProductsService
+    private store: Store
   ) {
   }
 
   ngOnInit(): void {
-
+    this.store.dispatch(new InitAuthState())
   }
 }

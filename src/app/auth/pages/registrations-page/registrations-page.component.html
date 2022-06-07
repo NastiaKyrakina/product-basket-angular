@@ -1,0 +1,57 @@
+<form [formGroup]="registrationForm" (ngSubmit)="register()">
+  <legend class="mat-headline">Дані користувача</legend>
+  <div class="row">
+    <fieldset class="fields">
+      <mat-error class="non-field-error" *ngIf="requestError">{{ requestError }}</mat-error>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Ім'я користувача</mat-label>
+        <input formControlName="username" matInput required type="text" name="username" autocomplete="false">
+      </mat-form-field>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Електронна адреса</mat-label>
+        <input formControlName="email" matInput required type="text" name="username" autocomplete="false">
+      </mat-form-field>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Пароль</mat-label>
+        <input formControlName="password1" matInput required type="password" name="password" autocomplete="false">
+      </mat-form-field>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Підтвердіть пароль</mat-label>
+        <input formControlName="password2" matInput required type="password" name="password" autocomplete="false">
+      </mat-form-field>
+    </fieldset>
+    <fieldset class="fields" [formGroup]="userInfoForm">
+      <legend class="mat-h3">Дані для розрахунків</legend>
+      <div class="form-field">
+        <label class="radio-group-label">Стать:</label>
+        <mat-radio-group aria-label="Стать" formControlName="sex">
+          <mat-radio-button [value]="Sex.Male">Чоловіча</mat-radio-button>
+          <mat-radio-button [value]="Sex.Female">Жіноча</mat-radio-button>
+        </mat-radio-group>
+      </div>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Вік</mat-label>
+          <input formControlName="years" matInput required type="number" class="example-right-align" placeholder="0">
+          <span matSuffix>&nbsp;років</span>
+        </mat-form-field>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Зріст</mat-label>
+          <input formControlName="height" matInput required type="number" class="example-right-align" placeholder="0">
+          <span matSuffix>&nbsp;м</span>
+        </mat-form-field>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Вага</mat-label>
+          <input formControlName="weight" matInput required type="number" class="example-right-align" placeholder="0">
+          <span matSuffix>&nbsp;м</span>
+        </mat-form-field>
+    </fieldset>
+    <fieldset class="fields fields-full" [formGroup]="userInfoForm">
+      <legend class="mat-h3">Рівень фізичного навантаження</legend>
+      <app-work-type-table class="work-type-table"
+                           [selectedActivityLevel]="userInfoForm.value.activityLevel"
+                           (activityLevelSelected)="selectActivityLevel($event)">
+      </app-work-type-table>
+    </fieldset>
+  </div>
+  <button mat-raised-button color="warn" [disabled]="registrationForm.invalid || loading">Створити аккаунт</button>
+</form>

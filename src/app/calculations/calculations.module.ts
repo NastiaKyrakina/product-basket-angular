@@ -27,15 +27,18 @@ import { FaIconModule } from '../shared-modules/fa-icon/fa-icon.component';
 
 
 @NgModule({
-  declarations: [
-    CalculationsComponent,
-    InputFormsComponent,
-    BasketInfoComponent,
-    UserPrivateInfoComponent,
-    UserWorkInfoComponent,
-    WorkTypeTableComponent,
-    LastStepComponent
-  ],
+    declarations: [
+        CalculationsComponent,
+        InputFormsComponent,
+        BasketInfoComponent,
+        UserPrivateInfoComponent,
+        UserWorkInfoComponent,
+        WorkTypeTableComponent,
+        LastStepComponent
+    ],
+    exports: [
+        WorkTypeTableComponent
+    ],
     imports: [
         CommonModule,
         CalculationsRoutingModule,

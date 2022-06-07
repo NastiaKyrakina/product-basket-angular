@@ -13,7 +13,9 @@
 }
 
 .selected-row {
-  font-weight: bold;
+  .mat-column-description {
+    color: #69f0ae;
+  }
 }
 
 app-fa-icon {

@@ -11,11 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
 import { CurrentBasketState } from './state/baskets/current-basket/current-basket.state';
 import { CalculationsState } from './state/baskets/calculations/calculations.state';
+import { UserState } from './state/user/user.state';
+import { AuthInterceptor } from './core/interseptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { CalculationsState } from './state/baskets/calculations/calculations.sta
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([CurrentBasketState, CalculationsState], {
+    NgxsModule.forRoot([CurrentBasketState, CalculationsState, UserState], {
       developmentMode: !environment.production
     }),
     BrowserAnimationsModule,
@@ -37,7 +39,13 @@ import { CalculationsState } from './state/baskets/calculations/calculations.sta
     MatIconModule,
     MatListModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

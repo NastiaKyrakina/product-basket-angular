@@ -17,3 +17,7 @@
 .mat-sidenav-content, body {
   @extend .scroll;
 }
+
+.non-field-error.mat-error {
+  margin-bottom: 15px;
+}

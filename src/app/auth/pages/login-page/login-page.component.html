@@ -1,0 +1,12 @@
+<form [formGroup]="loginForm" class="fields" (ngSubmit)="login()">
+  <mat-error class="non-field-error" *ngIf="requestError">{{ requestError }}</mat-error>
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Ім'я користувача</mat-label>
+    <input formControlName="username" matInput required type="text" name="username" autocomplete="false">
+  </mat-form-field>
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Пароль</mat-label>
+    <input formControlName="password" matInput required type="password" name="password" autocomplete="false">
+  </mat-form-field>
+  <button mat-raised-button color="warn" [disabled]="loginForm.invalid || loading">Вхід</button>
+</form>

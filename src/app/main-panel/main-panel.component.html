@@ -5,9 +5,11 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-nav-list>
+      <a  *ngIf="isAuthUser$ | async" mat-list-item routerLink="baskets">Профіль користувача</a>
       <a mat-list-item routerLink="calculations">Продуктовий кошик</a>
       <a mat-list-item routerLink="products">Список продуктів</a>
       <a mat-list-item routerLink="restrictions">Список Обмежень</a>
+      <a *ngIf="!(isAuthUser$ | async)" mat-list-item routerLink="auth">Авторизація</a>
       <a mat-list-item routerLink="about">Про проєкт</a>
     </mat-nav-list>
   </mat-sidenav>
