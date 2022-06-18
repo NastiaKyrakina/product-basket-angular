@@ -21,12 +21,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!UserState.accessToken) {
       return next.handle(request);
     }
-    const authReq = request.url.includes('auth') ? request.clone() : request.clone({
+    const authReq = request.clone({
       headers: request.headers.set('Authorization', `Bearer ${UserState.accessToken}`)
     });
-    // const authReq = request.clone({
-    //   withCredentials: true,
-    // });
     return next.handle(authReq).pipe(
       tap(
         event => {

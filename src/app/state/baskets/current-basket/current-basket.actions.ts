@@ -1,5 +1,5 @@
 import { stateNames } from '../../consts/state-names';
-import { IOptimizationResponse } from '../../../../models/http-api';
+import { IOptimizationResult } from '../../../../models/http-api';
 
 export class InitBasketState {
   static readonly type = `[${stateNames.currentBasket}] init basket state`;
@@ -13,5 +13,10 @@ export class OptimizeBasketAndSetAsCurrent {
 
 export class SetAsCurrentBasket {
   static readonly type = `[${stateNames.currentBasket}] set basket as current`;
-  constructor(public payload: IOptimizationResponse) {}
+  constructor(public payload: IOptimizationResult) {}
+}
+
+export class GetBasketById {
+  static readonly type = `[${stateNames.currentBasket}] get basket by id`;
+  constructor(public payload: { basketID: number; }) {}
 }

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainPanelComponent } from './main-panel/main-panel.component';
+import { MainPanelComponent } from './core/components/main-panel/main-panel.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +18,7 @@ import { CurrentBasketState } from './state/baskets/current-basket/current-baske
 import { CalculationsState } from './state/baskets/calculations/calculations.state';
 import { UserState } from './state/user/user.state';
 import { AuthInterceptor } from './core/interseptors/auth.interceptor';
+import { BasketsListState } from './state/baskets/baskets-list/current-basket.state';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { AuthInterceptor } from './core/interseptors/auth.interceptor';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxsModule.forRoot([CurrentBasketState, CalculationsState, UserState], {
+    NgxsModule.forRoot([CurrentBasketState, CalculationsState, BasketsListState, UserState], {
       developmentMode: !environment.production
     }),
     BrowserAnimationsModule,

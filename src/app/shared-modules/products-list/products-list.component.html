@@ -4,6 +4,7 @@
     <div class="product-details">
       <span>Кількість / Вага</span>
       <span>Вартість</span>
+      <span class="actions"></span>
     </div>
   </div>
 </div>
@@ -16,6 +17,12 @@
       <div class="product-details">
         <span>{{ product | productAmount}}</span>
         <span>{{ product | productPrice}}</span>
+        <button class="display-on-hover actions"
+                mat-icon-button
+                color="primary"
+                (click)="$event.stopPropagation(); removeProductConfirm(product)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </mat-panel-description>
   </mat-expansion-panel-header>

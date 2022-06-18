@@ -1,0 +1,23 @@
+.hidden-input {
+  position: sticky;
+  display: block;
+  top: 0;
+}
+
+.restrictions-form {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+
+  mat-form-field {
+    display: block;
+    flex: 1;
+    margin-right: 5px;
+  }
+}
+
+
+.add-button {
+  margin: 0 5px 1.34375em;
+}

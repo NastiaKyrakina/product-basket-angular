@@ -1,6 +1,6 @@
 import { stateNames } from '../../consts/state-names';
-import { IOptimizationResponse } from '../../../../models/http-api';
-import { ICalculations } from '../../../calculations/models/calculations';
+import { IOptimizationResult } from '../../../../models/http-api';
+import { ICalculations, ICalculationsUser } from '../../../modules/calculations/models/calculations';
 
 export class InitBasketState {
   static readonly type = `[${stateNames.calculations}] init calculations state`;
@@ -9,6 +9,11 @@ export class InitBasketState {
 export class SetBasketFormData {
   static readonly type = `[${stateNames.calculations}] set basket form data`;
   constructor(public payload: ICalculations) {}
+}
+
+export class SetUserCalcData {
+  static readonly type = `[${stateNames.calculations}] set userC calc data`;
+  constructor(public payload: ICalculationsUser) {}
 }
 
 export class ResetFormData {

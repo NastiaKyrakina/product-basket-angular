@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import { Observable, tap } from 'rxjs';
-import { IUser } from '../../auth/models/auth';
-import { InitAuthState, LoginAction, RegisterUserAction, ResetUserAction } from './user.actions';
-import { AuthService } from '../../auth/services/auth.service';
+import { IUser } from '../../modules/auth/models/auth';
+import {
+  GetUserCalcDataAction,
+  InitAuthState,
+  LoginAction,
+  RegisterUserAction,
+  ResetUserAction,
+  SaveUserCalcDataAction
+} from './user.actions';
+import { AuthService } from '../../modules/auth/services/auth.service';
 import { stateNames } from '../consts/state-names';
 import { LocalStorageService } from '../../core/servers/local-storage.service';
+import { SetUserCalcData } from '../baskets/calculations/calculations.actions';
 
 export interface IUserState {
   user: IUser | null;
@@ -32,7 +40,7 @@ export class UserState {
 
   @Selector()
   static isAuthUser(state: IUserState): boolean {
-    return !!state.user;
+    return !!(state.user || UserState.accessToken);
   }
 
   constructor(
@@ -44,11 +52,12 @@ export class UserState {
   }
 
   @Action(InitAuthState)
-  initAuthState(ctx: StateContext<IUserState>) {
-    const user = this.getUser();
-    if (user) {
-      ctx.patchState({user})
-    }
+  initAuthState(ctx: StateContext<IUserState>): Observable<any> {
+   return this.authService.getUser()
+     .pipe(
+       tap(user => ctx.patchState({user})),
+       tap(() =>  ctx.dispatch(new GetUserCalcDataAction())),
+     );
   }
 
   @Action(LoginAction)
@@ -62,12 +71,27 @@ export class UserState {
 
   @Action(RegisterUserAction)
   registerUser(ctx: StateContext<IUserState>, action: RegisterUserAction): Observable<any> {
-    return this.authService.registerUser(action.payload)
-      .pipe(tap(res => {
-        this.saveToken(res.access_token);
-        this.saveUser(res.user)
-        ctx.patchState({user: res.user});
-      }))
+    return this.authService.registerUser(action.payload.user)
+      .pipe(
+        tap(res => {
+          this.saveToken(res.access_token);
+          this.saveUser(res.user)
+          ctx.patchState({user: res.user});
+        }),
+        tap(res => ctx.dispatch(new SaveUserCalcDataAction(action.payload.calculations)))
+      )
+  }
+
+  @Action(SaveUserCalcDataAction)
+  saveUserCalcData(ctx: StateContext<IUserState>, action: SaveUserCalcDataAction): Observable<any> {
+    return this.authService.addUserCalcData(action.payload)
+      .pipe(tap(res => ctx.dispatch(new SetUserCalcData(res))))
+  }
+
+  @Action(GetUserCalcDataAction)
+  getUserCalcData(ctx: StateContext<IUserState>): Observable<any> {
+    return this.authService.getUserCalcData()
+      .pipe(tap(res => ctx.dispatch(new SetUserCalcData(res))))
   }
 
   @Action(ResetUserAction)

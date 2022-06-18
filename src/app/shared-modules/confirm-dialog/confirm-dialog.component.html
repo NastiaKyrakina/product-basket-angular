@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ dialogData.title }}</h1>
+<div mat-dialog-content>
+  <div [innerHTML]="dialogData.text"></div>
+</div>
+<div mat-dialog-actions cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+  <div class="buttons">
+    <button *ngFor="let btn of dialogData.buttons" mat-button [mat-dialog-close]="btn" color="{{ btn.type === 'confirm' ? 'primary' : 'default' }}">
+      {{ btn.title }}
+    </button>
+  </div>
+</div>

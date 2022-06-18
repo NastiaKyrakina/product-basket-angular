@@ -1,5 +1,6 @@
-import { ILoginBody, IRegisterBody } from '../../auth/models/auth';
+import { ILoginBody, IRegisterBody } from '../../modules/auth/models/auth';
 import { stateNames } from '../consts/state-names';
+import { ICalculationsUser } from '../../modules/calculations/models/calculations';
 
 
 export class InitAuthState {
@@ -13,12 +14,20 @@ export class LoginAction {
   constructor(public payload: ILoginBody) {}
 }
 
-
 export class RegisterUserAction {
   static readonly type = `[${stateNames.user}] register user`;
-  constructor(public payload: IRegisterBody) {}
+  constructor(public payload: { user: IRegisterBody, calculations: ICalculationsUser }) {}
 }
 
+export class SaveUserCalcDataAction {
+  static readonly type = `[${stateNames.user}] save user calc data`;
+  constructor(public payload: ICalculationsUser) {}
+}
+
+export class GetUserCalcDataAction {
+  static readonly type = `[${stateNames.user}] get user calc data`;
+  constructor() {}
+}
 
 export class ResetUserAction {
   static readonly type = `[${stateNames.user}] reset current user`;

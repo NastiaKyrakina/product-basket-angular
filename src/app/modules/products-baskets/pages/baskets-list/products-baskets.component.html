@@ -1,0 +1,7 @@
+<h1 class="headline">Кабінет користувача {{(user$ | async)?.username}}:</h1>
+<ul *ngIf="calculationsData$ | async as calculationsData" class="item-list">
+  <li>Індекс маси тіла: <span class="value">{{ calculationsData.MIT }}</span></li>
+  <li>Рекомендована кількість кілокалорій на добу: <span class="value">{{ calculationsData.energyAmount }} ккал.</span></li>
+</ul>
+<h2 class="mat-h2 products-table-header">Продуктові кошики</h2>
+<app-baskets-table [userBaskets]="userBaskets$ | async"></app-baskets-table>

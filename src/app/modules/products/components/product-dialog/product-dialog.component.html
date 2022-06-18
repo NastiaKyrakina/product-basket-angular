@@ -1,0 +1,76 @@
+<h1 mat-dialog-title>{{ action === 'Add' ? 'Редагувати' : 'Додати'}} продукт</h1>
+<div mat-dialog-content>
+  <form [formGroup]="productForm">
+    <p>Введіть дані для додавання нового подукту у список для проведення розрахунків</p>
+    <mat-form-field class="full-with-control" appearance="fill">
+      <mat-label>Категорія продукту</mat-label>
+      <mat-select formControlName="category" required>
+        <mat-option *ngFor="let option of categories" [value]="option.id">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-with-control" appearance="fill" floatLabel="always">
+      <mat-label>Назва продукту</mat-label>
+      <input formControlName="name" matInput required>
+    </mat-form-field>
+    <div class="amount-row">
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Вага / кількість продукту</mat-label>
+        <input formControlName="amount" matInput required type="number" class="example-right-align" placeholder="0">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Одиниця вимірювання</mat-label>
+        <mat-select formControlName="unit" required>
+          <mat-option *ngFor="let option of UNIT_OPTIONS" [value]="option.value">
+            {{ option.label }} ({{option.value}})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="full-with-control" appearance="fill" floatLabel="always">
+      <mat-label>Вартість продукту</mat-label>
+      <input formControlName="price" matInput required type="number" class="example-right-align" placeholder="0">
+      <span matPrefix>₴&nbsp;</span>
+    </mat-form-field>
+    <p>Введіть дані щодо енергетичних характеристик продукту (на 100 гр продукту)</p>
+    <div formArrayName="states">
+      <ng-container *ngFor="let state of productStatesArray.controls; let i = index">
+        <div class="state-item" [formGroup]="state | formGroup">
+          <div class="amount-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Тип приготування</mat-label>
+              <mat-select formControlName="state" required>
+                <mat-option *ngFor="let option of PRODUCT_STATES | keyvalue" [value]="option.key">
+                  {{ option.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" floatLabel="always">
+              <mat-label>Калорійність на 100 гр продукту</mat-label>
+              <input formControlName="energy" matInput required>
+            </mat-form-field>
+          </div>
+          <div class="amount-row">
+            <mat-form-field appearance="fill" floatLabel="always">
+              <mat-label>Білки (гр)</mat-label>
+              <input formControlName="proteins" matInput required type="number" class="example-right-align" placeholder="0">
+            </mat-form-field>
+            <mat-form-field appearance="fill" floatLabel="always">
+              <mat-label>Жири (гр)</mat-label>
+              <input formControlName="fats" matInput required type="number" class="example-right-align" placeholder="0">
+            </mat-form-field>
+            <mat-form-field appearance="fill" floatLabel="always">
+              <mat-label>Вуглеводи (гр)</mat-label>
+              <input formControlName="carbohydrates" matInput required type="number" class="example-right-align" placeholder="0">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="add-button" mat-raised-button>Відмінити</button>
+          <button class="add-button" mat-raised-button color="primary">{{action === 'Add' ? 'Додати' : 'Редагувати'}} продукт</button>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+</div>

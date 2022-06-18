@@ -6,23 +6,14 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-form-field.mat-focused .mat-form-field-label {
-  color: lemonchiffon;
-}
+//.mat-form-field.mat-focused .mat-form-field-label {
+//  color: lemonchiffon;
+//}
 
 app-control-wrapper {
   .mat-form-field {
     width: 100%;
   }
-}
-
-
-.pie-label {
-  fill: lemonchiffon;
-}
-
-.chart-legend .legend-label:hover .active span {
-  color: lemonchiffon !important;
 }
 
 .ngx-charts-outer {
@@ -31,4 +22,7 @@ app-control-wrapper {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+}
+b {
+  font-weight: 500 !important;
 }

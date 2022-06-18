@@ -1,0 +1,28 @@
+.restrictions-table {
+  width: 100%;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+.display-on-hover {
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.mat-row:hover {
+  .mat-cell {
+    border-color: currentColor;
+    transition: border-color 0.1s ease-in-out;
+  }
+
+  .display-on-hover {
+    opacity: 1;
+  }
+}
+
+.mat-column-action {
+  width: 50px;
+}

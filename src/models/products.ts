@@ -57,10 +57,10 @@ export enum Comparators {
   'LT' = 'LT',
 }
 
-export interface IRestrictions {
+export interface IRestriction {
   id: number;
   product: IProduct;
   amount: number;
-  comparators: Comparators
+  comparator: Comparators
   unit: string;
 }

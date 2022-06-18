@@ -1,0 +1,23 @@
+<fieldset [formGroup]="basketForm" class="fields">
+  <h3 class="headline">Введіть дані щодо терміну розрахунку</h3>
+
+  <app-control-wrapper name="{{FA_ICONS.calendar}}">
+    <mat-form-field appearance="fill">
+      <mat-label>Термін розрахунку</mat-label>
+      <mat-select formControlName="term" required>
+        <mat-option value="1">Доба</mat-option>
+        <mat-option value="7">Тиждень</mat-option>
+        <mat-option value="30">Місяць</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </app-control-wrapper>
+  <app-control-wrapper name="{{FA_ICONS.money}}">
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Максимальна вартість кошику</mat-label>
+      <input formControlName="maxSum" matInput required type="number" class="example-right-align" placeholder="0">
+      <span matPrefix>$&nbsp;</span>
+      <span matSuffix>.00</span>
+    </mat-form-field>
+  </app-control-wrapper>
+</fieldset>
+

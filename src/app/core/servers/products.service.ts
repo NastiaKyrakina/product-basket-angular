@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IRestrictions, IShopProduct, ShopProduct } from '../../../models/products';
+import { ICategory, IProduct, IRestriction, IShopProduct, ShopProduct } from '../../../models/products';
 import { map } from 'rxjs/operators';
-import { IOptimizationResponse } from '../../../models/http-api';
+import { IOptimizationResult } from '../../../models/http-api';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +14,24 @@ export class ProductsService {
     private http: HttpClient,
   ) { }
 
-  getCategories(): Observable<Array<string>> {
-    return this.http.get<Array<string>>(`${environment.apiURL}products/categories`);
+  getCategories(): Observable<Array<ICategory>> {
+    return this.http.get<Array<ICategory>>(`${environment.apiURL}products/categories`);
   }
 
-  getProducts(): Observable<Array<IShopProduct>> {
+  getProducts(): Observable<Array<IProduct>> {
+    return this.http.get<Array<IProduct>>(`${environment.apiURL}products/products`);
+  }
+
+  getShopProducts(): Observable<Array<IShopProduct>> {
     return this.http.get<Array<IShopProduct>>(`${environment.apiURL}products/shop-products`);
   }
 
-  getRestrictions(): Observable<Array<IRestrictions>> {
-    return this.http.get<Array<IRestrictions>>(`${environment.apiURL}products/restrictions`);
+  getRestrictions(): Observable<Array<IRestriction>> {
+    return this.http.get<Array<IRestriction>>(`${environment.apiURL}products/restrictions`);
   }
 
   getProductsByCategories(): Observable<Record<string, ShopProduct[]>> {
-    return this.getProducts()
+    return this.getShopProducts()
       .pipe(
         map(products => {
           const categoryMap = {};

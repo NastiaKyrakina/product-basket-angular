@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { OptimizationService } from '../../../core/servers/optimization.service';
 import { LocalStorageService } from '../../../core/servers/local-storage.service';
-import { ICalculationsUser } from '../../../calculations/models/calculations';
-import { InitBasketState, ResetFormData, SetBasketFormData } from './calculations.actions';
-import { CalculationsService } from '../../../calculations/servers/calculations.service';
+import { ICalculationsUser } from '../../../modules/calculations/models/calculations';
+import { InitBasketState, ResetFormData, SetBasketFormData, SetUserCalcData } from './calculations.actions';
+import { CalculationsService } from '../../../modules/calculations/servers/calculations.service';
 
 export interface ICalculationsState {
   user: ICalculationsUser | null;
@@ -44,6 +44,11 @@ export class CalculationsState {
   }
 
   @Selector()
+  static user(state: ICalculationsState): ICalculationsUser | null {
+    return state.user;
+  }
+
+  @Selector()
   static isActive(state: ICalculationsState): boolean {
     return state.isActive;
   }
@@ -69,6 +74,16 @@ export class CalculationsState {
       energyAmount: this.calculationsService.getDailyCCalAmount(action.payload.user),
       MIT: this.calculationsService.getMIT(action.payload.user),
       isActive: true,
+    });
+    this.localStorageService.set(this.STORE_KEY, ctx.getState());
+  }
+
+  @Action(SetUserCalcData)
+  setUserCalcData(ctx: StateContext<ICalculationsState>, action: SetUserCalcData) {
+    ctx.patchState({
+      user: action.payload,
+      energyAmount: this.calculationsService.getDailyCCalAmount(action.payload),
+      MIT: this.calculationsService.getMIT(action.payload),
     });
     this.localStorageService.set(this.STORE_KEY, ctx.getState());
   }

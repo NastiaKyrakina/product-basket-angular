@@ -2,7 +2,7 @@ import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IAdditionalState, IShopProduct } from '../../../../models/products';
 
-const PRODUCT_STATES = {
+export const PRODUCT_STATES = {
   'AI': '-',
   'BL': 'Варений',
   'BK': 'Запечений',

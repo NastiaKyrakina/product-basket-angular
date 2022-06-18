@@ -1,0 +1,20 @@
+.full-with-control {
+  width: 100%;
+}
+
+.amount-row {
+  :last-child {
+    margin-right: 0;
+  }
+
+  * {
+    margin-right: 10px;
+  }
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -3,12 +3,18 @@ import { IProduct, IShopProduct } from '../../../../models/products';
 import { stateNames } from '../../consts/state-names';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
-import { InitBasketState, OptimizeBasketAndSetAsCurrent, SetAsCurrentBasket } from './current-basket.actions';
+import {
+  GetBasketById,
+  InitBasketState,
+  OptimizeBasketAndSetAsCurrent,
+  SetAsCurrentBasket
+} from './current-basket.actions';
 import { Observable, tap } from 'rxjs';
 import { OptimizationService } from '../../../core/servers/optimization.service';
 import { LocalStorageService } from '../../../core/servers/local-storage.service';
 import { ICalculationsState } from '../calculations/calculations.state';
 import { ResetFormData } from '../calculations/calculations.actions';
+import { IBasketsListState } from '../baskets-list/current-basket.state';
 
 export interface ICurrentBasketState {
   basketID?: number | null;
@@ -87,5 +93,22 @@ export class CurrentBasketState {
       isSaved: !!basketData.bucketID,
     });
     this.localStorageService.set('new', ctx.getState());
+  }
+
+  @Action(GetBasketById)
+  getBasketById(ctx: StateContext<ICurrentBasketState>, action: GetBasketById) {
+    const baskets = this.store
+      .selectSnapshot<IBasketsListState>(store => store[stateNames.basketsList])
+      .list;
+    const currentBasket = baskets.find(basket => basket.id == action.payload.basketID)
+    if (currentBasket) {
+      ctx.patchState({
+        basketID: currentBasket.id,
+        productBasket: currentBasket.products.product_bucket,
+        general: currentBasket.products.general,
+        isSaved: true,
+      });
+    }
+    // this.localStorageService.set('new', ctx.getState());
   }
 }

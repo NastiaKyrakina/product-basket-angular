@@ -1,0 +1,34 @@
+<form [formGroup]="restrictionsForm" class="restrictions-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Продукт</mat-label>
+    <mat-select formControlName="product" required>
+<!--      <span class="mat-option hidden-input">-->
+<!--        <input (keyup)="onKey($event)">-->
+<!--      </span>-->
+      <mat-option *ngFor="let product of productList" [value]="product.id">
+        {{ product.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Умова</mat-label>
+    <mat-select formControlName="comparators" required>
+      <mat-option *ngFor="let comparator of Comparators" [value]="comparator">
+        {{ comparator | comparator }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Вага / кількість продукту</mat-label>
+    <input formControlName="amount" matInput required type="number" class="example-right-align" placeholder="0">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Одиниця вимірювання</mat-label>
+    <mat-select formControlName="unit" required>
+      <mat-option *ngFor="let option of UNIT_OPTIONS" [value]="option.value">
+        {{ option.label }} ({{option.value}})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="add-button" mat-raised-button color="warn">{{restrictionForEdit ? 'Редагувати' : 'Додати'}} обмеження</button>
+</form>

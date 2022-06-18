@@ -1,4 +1,4 @@
-import { PhysicalActivityLevel } from '../../calculations/models/calculations';
+import { PhysicalActivityLevel } from '../../modules/calculations/models/calculations';
 
 export const PHYSIC_LEVELS = [
   {

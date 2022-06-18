@@ -1,0 +1,12 @@
+<div *ngIf="general" class="result-top-row">
+  <div class="right-details">
+    <span>Загальна кількість калорій - <b>{{general.energy | number }} ккал</b></span>
+    <span>Загальна вартість - <b>{{general.price | number }} грн.</b></span>
+  </div>
+  <img class="basket-img" src="../../../../../../assets/images/backet-img.png" alt="">
+</div>
+<app-deck-row></app-deck-row>
+<app-optimization-result-pie class="optimization-pie"
+                             [data]="general">
+</app-optimization-result-pie>
+<app-deck-row></app-deck-row>
