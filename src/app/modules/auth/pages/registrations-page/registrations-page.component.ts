@@ -68,6 +68,7 @@ export class RegistrationsPageComponent implements OnInit {
 
   register(): void {
     if (this.registrationForm.invalid || this.userInfoForm.invalid || this.loading) {
+      this.requestError = "Некоректні дані форми"
       return;
     }
     this.loading = true;
@@ -81,6 +82,9 @@ export class RegistrationsPageComponent implements OnInit {
           const errors = errorRes.error;
           if (errors?.non_field_errors?.length) {
             this.requestError = ERRORS_TEXT[errors.non_field_errors[0]];
+          }
+          if (errors.password1) {
+            this.requestError = errors.password1[0];
           }
         }
       );

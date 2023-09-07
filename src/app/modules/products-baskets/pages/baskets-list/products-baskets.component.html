@@ -5,3 +5,17 @@
 </ul>
 <h2 class="mat-h2 products-table-header">Продуктові кошики</h2>
 <app-baskets-table [userBaskets]="userBaskets$ | async"></app-baskets-table>
+
+<div class="profile-actions">
+  <button class="first-btn"
+          mat-raised-button
+          color="basic"
+          routerLink="/auth/change-password">
+    Змінити пароль
+  </button>
+  <button mat-raised-button
+          color="primary"
+          (click)="logout()">
+    Вихід
+  </button>
+</div>

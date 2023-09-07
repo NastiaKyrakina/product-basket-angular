@@ -12,13 +12,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { CalculationsModule } from '../calculations/calculations.module';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 
 @NgModule({
   declarations: [
     AuthComponent,
     RegistrationsPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,

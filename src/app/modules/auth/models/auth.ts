@@ -6,6 +6,11 @@ export interface ILoginBody {
   password: string;
 }
 
+export interface IChangePasswordBody {
+  old_password: string;
+  new_password1: string;
+  new_password2: string;
+}
 
 export interface IRegisterBody {
   username: string;
@@ -18,6 +23,10 @@ export interface ILoginResponse {
   access_token: string;
   refresh_token: string;
   user: IUser;
+}
+
+export interface IChangePasswordResponse {
+  detail: string;
 }
 
 export interface IUser {

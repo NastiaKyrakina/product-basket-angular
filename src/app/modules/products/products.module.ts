@@ -25,12 +25,15 @@ import { FormGroupPipe } from './pipes/form-group.pipe';
 
 
 @NgModule({
-  declarations: [
-    ProductsComponent,
-    ProductsTableComponent,
-    ProductDialogComponent,
-    FormGroupPipe
-  ],
+    declarations: [
+        ProductsComponent,
+        ProductsTableComponent,
+        ProductDialogComponent,
+        FormGroupPipe
+    ],
+    exports: [
+        FormGroupPipe
+    ],
     imports: [
         CommonModule,
         ProductsRoutingModule,

@@ -9,6 +9,7 @@ import { CalculationsState, ICalculationsState } from '../../../../state/baskets
 import { ICalculationsUser } from '../../../calculations/models/calculations';
 import { UserState } from '../../../../state/user/user.state';
 import { IUser } from '../../../auth/models/auth';
+import { LogoutAction } from '../../../../state/user/user.actions';
 
 @Component({
   selector: 'app-products-baskets',
@@ -29,4 +30,7 @@ export class ProductsBasketsComponent implements OnInit {
     this.store.dispatch(new GetUserBaskets());
   }
 
+  logout(): void {
+    this.store.dispatch(new LogoutAction());
+  }
 }

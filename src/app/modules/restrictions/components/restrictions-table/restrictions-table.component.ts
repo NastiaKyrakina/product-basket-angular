@@ -63,7 +63,6 @@ export class RestrictionsTableComponent {
   }
 
   editRestrictionConfirm(restriction: IRestriction): void {
-    console.log(restriction.comparator, COMPARATORS_LABELS[restriction.comparator])
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '380px',
       data: {

@@ -16,3 +16,13 @@
   border-top: 1px solid rgba(255,255,255,.12);
   padding-top: 10px;
 }
+
+.profile-actions {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+
+  .first-btn {
+    margin-right: 30px;
+  }
+}

@@ -1,4 +1,4 @@
-import { ILoginBody, IRegisterBody } from '../../modules/auth/models/auth';
+import { IChangePasswordBody, ILoginBody, IRegisterBody } from '../../modules/auth/models/auth';
 import { stateNames } from '../consts/state-names';
 import { ICalculationsUser } from '../../modules/calculations/models/calculations';
 
@@ -12,6 +12,21 @@ export class InitAuthState {
 export class LoginAction {
   static readonly type = `[${stateNames.user}] login`;
   constructor(public payload: ILoginBody) {}
+}
+
+export class LogoutAction {
+  static readonly type = `[${stateNames.user}] logout`;
+  constructor() {}
+}
+
+export class RefreshTokenAction {
+  static readonly type = `[${stateNames.user}] refresh token`;
+  constructor() {}
+}
+
+export class ChangePasswordAction {
+  static readonly type = `[${stateNames.user}] change password`;
+  constructor(public payload: IChangePasswordBody) {}
 }
 
 export class RegisterUserAction {

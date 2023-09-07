@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ICategory, IProduct, IRestriction, IShopProduct, ShopProduct } from '../../../models/products';
 import { map } from 'rxjs/operators';
-import { IOptimizationResult } from '../../../models/http-api';
 
 @Injectable({
   providedIn: 'root'
