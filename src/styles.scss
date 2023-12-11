@@ -1,14 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+@include mat.core();
+
+$app-primary-light: mat-palette($mat-teal);
+$app-accent-light:  mat-palette($mat-amber, A200, A100, A400);
+$app-warn-light:  mat-palette($mat-indigo, A200, A100, A400);
+
+$light-app-theme: mat-light-theme((
+  color: (
+    primary: $app-primary-light,
+    accent: $app-accent-light,
+    warn: $app-warn-light,
+  )
+));
+
+.light-theme {
+    --primary:  #{mat-color($app-primary-light)};
+    --accent:  #{mat-color($app-accent-light)};
+    --warn:  #{mat-color($app-warn-light)};
+    --third-header: rgb(39,39,39);
+}
+
+// dark theme ----------------------------
+
+$app-primary-dark: mat-palette($mat-teal);
+$app-accent-dark:  mat-palette($mat-blue-gray, A200, A100, A400);
+$app-warn-dark:  mat-palette($mat-orange);
+
+$dark-app-theme: mat-dark-theme((
+  color: (
+    primary: $app-primary-dark,
+    accent: $app-accent-dark,
+    warn: $app-warn-dark,
+  )
+));
+
+@include angular-material-theme($light-app-theme);
+
+.dark-theme {
+  @include angular-material-color($dark-app-theme);
+}
+
+.dark-theme{
+  --primary:  #{mat-color($app-primary-dark)};
+  --accent:  #{mat-color($app-accent-dark)};
+  --warn:  #{mat-color($app-warn-dark)};
+  --third-header: #dad8d8;
+}
+
 
 @import "styles/reset";
 @import "styles/features";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-//.mat-form-field.mat-focused .mat-form-field-label {
-//  color: lemonchiffon;
-//}
 
 app-control-wrapper {
   .mat-form-field {
@@ -25,4 +71,15 @@ app-control-wrapper {
 }
 b {
   font-weight: 500 !important;
+}
+
+.pie-label {
+  fill: white;
+}
+
+.mat-expansion-panel.selected {
+  background: var(--primary);
+  .mat-expansion-panel-header-title, .mat-expansion-panel-body {
+    color: white;
+  }
 }

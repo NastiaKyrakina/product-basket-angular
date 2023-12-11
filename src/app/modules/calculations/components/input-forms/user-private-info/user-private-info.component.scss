@@ -1,3 +1,8 @@
+:host {
+  display: flex;
+  margin-right: 20px;
+}
+
 .fields {
   display: flex;
   flex-direction: column;
@@ -33,17 +38,26 @@ input.example-right-align {
   padding-bottom: 1.34375em;
 }
 
-.row {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
+//.row {
+//  display: flex;
+//  align-items: flex-end;
+//  flex-wrap: wrap;
+//
+//  .column {
+//    display: flex;
+//    flex-direction: column;
+//
+//    &:first-child {
+//      margin-right: 45px;
+//    }
+//  }
+//}
 
-  .column {
-    display: flex;
-    flex-direction: column;
-
-    &:first-child {
-      margin-right: 45px;
-    }
-  }
+.form-controls {
+  max-width: 300px;
 }
+
+.mat-form-field {
+  width: 100%;
+}
+

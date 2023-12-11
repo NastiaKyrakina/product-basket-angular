@@ -21,3 +21,16 @@
 .non-field-error.mat-error {
   margin-bottom: 15px;
 }
+
+.form-field.mat-button-toggle-group, .form-field .mat-button-toggle {
+  width: 100%;
+}
+
+.form-field {
+  margin-bottom: 15px;
+}
+
+
+.mat-typography h3 {
+  color: var(--third-header);
+}

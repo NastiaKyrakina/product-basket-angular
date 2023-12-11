@@ -23,6 +23,19 @@ export interface ICalculations {
   user: ICalculationsUser;
   term: number;
   maxSum: number;
+  diet: IDiet;
+}
+
+export interface IDiet {
+  id: number;
+  name: string;
+  description: string;
+  carbMin: number;
+  carbMax: number;
+  protMin: number;
+  protMax: number;
+  fatsMin: number;
+  fatsMax: number;
 }
 
 export interface IBasketData {

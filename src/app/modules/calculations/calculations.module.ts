@@ -24,6 +24,10 @@ import {
   OptimizationProcessLoaderModule
 } from '../../shared-modules/optimization-process-loader/optimization-process-loader.component';
 import { FaIconModule } from '../../shared-modules/fa-icon/fa-icon.component';
+import { DietSelectBlockComponent } from './components/input-forms/diet-info/diet-select-block.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ProductsListModule } from '../../shared-modules/products-list/products-list.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -34,7 +38,8 @@ import { FaIconModule } from '../../shared-modules/fa-icon/fa-icon.component';
         UserPrivateInfoComponent,
         UserWorkInfoComponent,
         WorkTypeTableComponent,
-        LastStepComponent
+        LastStepComponent,
+      DietSelectBlockComponent
     ],
     exports: [
         WorkTypeTableComponent
@@ -55,6 +60,9 @@ import { FaIconModule } from '../../shared-modules/fa-icon/fa-icon.component';
         MatListModule,
         OptimizationProcessLoaderModule,
         FaIconModule,
+        MatExpansionModule,
+        ProductsListModule,
+        MatButtonToggleModule,
     ]
 })
 export class CalculationsModule { }

@@ -10,6 +10,7 @@ import { FA_ICONS } from '../../core/constants/icons';
 export class FaIconComponent implements OnInit {
 
   @Input() name!: string;
+  @Input() color: 'active' | 'default' = 'default';
   @Input() size = 2;
 
 

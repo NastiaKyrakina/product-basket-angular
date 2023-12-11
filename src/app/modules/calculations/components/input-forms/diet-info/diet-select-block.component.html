@@ -1,0 +1,29 @@
+<h3 class="headline">Оберіть тип дієти для розрахунку</h3>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let diet of diets" [ngClass]="{'selected': dietForm.value.dietId === diet.id}">
+    <mat-expansion-panel-header (click)="selectWorkType(diet.id)">
+      <mat-panel-title>
+        <span class="diet-title">
+           {{ diet.name }}
+        </span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      {{ diet.description }}
+    </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="selection-block" [formGroup]="dietForm">
+  <h3 class="headline">Прибрати продукти з категорії:</h3>
+  <mat-button-toggle-group formControlName="categoriesToExclude"
+                           class="exclude-list"
+                           appearance="legacy"
+                           multiple>
+    <mat-button-toggle *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+<div class="selection-block">
+  <a mat-raised-button routerLink="/products" [queryParams]="{from: 'calculations'}">
+    Преглянути список продуктів для розрахунків
+  </a>
+</div>

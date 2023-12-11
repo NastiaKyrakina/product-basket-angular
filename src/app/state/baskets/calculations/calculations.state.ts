@@ -2,9 +2,8 @@ import { IShopProduct } from '../../../../models/products';
 import { stateNames } from '../../consts/state-names';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { OptimizationService } from '../../../core/servers/optimization.service';
 import { LocalStorageService } from '../../../core/servers/local-storage.service';
-import { ICalculationsUser } from '../../../modules/calculations/models/calculations';
+import { ICalculationsUser, IDiet } from '../../../modules/calculations/models/calculations';
 import { InitBasketState, ResetFormData, SetBasketFormData, SetUserCalcData } from './calculations.actions';
 import { CalculationsService } from '../../../modules/calculations/servers/calculations.service';
 
@@ -16,6 +15,9 @@ export interface ICalculationsState {
   MIT: number;
   products?: IShopProduct[];
   isActive: boolean;
+  diet?: IDiet;
+  dietId?: number;
+  energyRestrictions?: Record<string, number[]>;
 }
 
 const DefaultCalculationsState: ICalculationsState = {
@@ -54,7 +56,6 @@ export class CalculationsState {
   }
 
   constructor(
-    private optimizationService: OptimizationService,
     private calculationsService: CalculationsService,
     private localStorageService: LocalStorageService,
   ) {}

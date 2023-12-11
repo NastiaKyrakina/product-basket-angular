@@ -1,46 +1,34 @@
 <form *ngIf="!optimizationInProgress; else optimizationLoader" [formGroup]="firstFormGroup">
   <mat-stepper linear #stepper>
-    <mat-step [stepControl]="basketForm" [editable]="isEditable">
-      <ng-template matStepLabel>Термін та вартість</ng-template>
-      <app-basket-info [basketForm]="basketForm"></app-basket-info>
-      <div class="stepper-buttons">
-        <button matStepperNext
-                mat-mini-fab
-                color="warn"
-                aria-label="Forward icon"
-                [disabled]="basketForm.invalid">
-          <mat-icon>forward</mat-icon>
-        </button>
-      </div>
-    </mat-step>
     <mat-step [stepControl]="userForm" [editable]="isEditable">
       <ng-template matStepLabel>Дані користувача</ng-template>
-      <app-user-private-info [userForm]="userForm"></app-user-private-info>
+      <h3 class="headline">Заповніть дані для розрахунку добового раціону калорій</h3>
+      <div class="user-forms-blocks">
+        <app-user-private-info [userForm]="userForm"></app-user-private-info>
+        <app-user-work-info [userForm]="userWorkForm"></app-user-work-info>
+      </div>
       <div class="stepper-buttons">
         <button matStepperNext
                 mat-mini-fab
                 color="warn"
                 aria-label="Forward icon"
-                [disabled]="userForm.invalid">
+                [disabled]="userForm.invalid || userWorkForm.invalid">
           <mat-icon>forward</mat-icon>
-        </button>
-        <button matStepperPrevious
-                mat-mini-fab
-                color="primary"
-                aria-label="Back icon">
-          <mat-icon class="back-forward">forward</mat-icon>
         </button>
       </div>
     </mat-step>
     <mat-step [stepControl]="userWorkForm" [editable]="isEditable">
       <form [formGroup]="calculationsGroup">
-        <ng-template matStepLabel>Характер діяльності</ng-template>
-        <app-user-work-info [userForm]="userWorkForm"></app-user-work-info>
+        <ng-template matStepLabel>Напрямок дієти</ng-template>
+        <app-diet-select-block [dietForm]="dietForm"
+                               [diets]="diets"
+                               [categories]="categories">
+        </app-diet-select-block>
         <div class="stepper-buttons">
           <button mat-mini-fab
                   color="warn"
                   aria-label="Forward icon"
-                  [disabled]="userWorkForm.invalid"
+                  [disabled]="dietForm.invalid"
                   (click)="goForward(stepper)">
             <mat-icon>forward</mat-icon>
           </button>
@@ -52,6 +40,25 @@
           </button>
         </div>
       </form>
+    </mat-step>
+    <mat-step [stepControl]="basketForm" [editable]="isEditable">
+      <ng-template matStepLabel>Термін та вартість</ng-template>
+      <app-basket-info [basketForm]="basketForm"></app-basket-info>
+      <div class="stepper-buttons">
+        <button matStepperNext
+                mat-mini-fab
+                color="warn"
+                aria-label="Forward icon"
+                [disabled]="basketForm.invalid">
+          <mat-icon>forward</mat-icon>
+        </button>
+        <button matStepperPrevious
+                mat-mini-fab
+                color="primary"
+                aria-label="Back icon">
+          <mat-icon class="back-forward">forward</mat-icon>
+        </button>
+      </div>
     </mat-step>
     <mat-step (interacted)="onDoneInteract()">
       <ng-template matStepLabel>Done</ng-template>

@@ -3,6 +3,7 @@ import { IOptimizationGeneral } from './optimization';
 
 export interface IOptimizationResult {
   bucketID?: number;
+  name?: string;
   optimization: {
     product_bucket: IShopProduct[];
     general: IOptimizationGeneral;

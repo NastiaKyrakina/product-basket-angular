@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FA_ICONS } from '../../../../../core/constants/icons';
 
@@ -7,16 +7,11 @@ import { FA_ICONS } from '../../../../../core/constants/icons';
   templateUrl: './basket-info.component.html',
   styleUrls: ['./basket-info.component.scss']
 })
-export class BasketInfoComponent implements OnInit {
+export class BasketInfoComponent {
 
   readonly FA_ICONS = FA_ICONS;
 
   // @ts-ignore
   @Input() basketForm: FormGroup;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -14,10 +14,11 @@ import { OptimizationService } from '../../../core/servers/optimization.service'
 import { LocalStorageService } from '../../../core/servers/local-storage.service';
 import { ICalculationsState } from '../calculations/calculations.state';
 import { ResetFormData } from '../calculations/calculations.actions';
-import { IBasketsListState } from '../baskets-list/current-basket.state';
+import { IDiet } from '../../../modules/calculations/models/calculations';
 
 export interface ICurrentBasketState {
   basketID?: number | null;
+  name?: string;
   productBasket: IShopProduct[];
   general: IOptimizationGeneral | null;
   isSaved: boolean;
@@ -72,9 +73,9 @@ export class CurrentBasketState {
 
   @Action(OptimizeBasketAndSetAsCurrent)
   optimizeBasketAndSetAsCurrent(ctx: StateContext<ICurrentBasketState>, action: OptimizeBasketAndSetAsCurrent): Observable<any> {
-    const formData = this.store.selectSnapshot<ICalculationsState>(store => store[stateNames.calculations]);
-
-    return this.optimizationService.optimizeProductsList(formData)
+    const {diet, ...formData} = this.store.selectSnapshot<ICalculationsState>(store => store[stateNames.calculations]);
+   const energyRestrictions = this.getEnergyRestrictions(diet);
+    return this.optimizationService.optimizeProductsList({...formData, dietId: diet?.id, energyRestrictions})
       .pipe(
         tap(() => ctx.dispatch(new ResetFormData())),
         tap(
@@ -83,11 +84,27 @@ export class CurrentBasketState {
       );
   }
 
+  getEnergyRestrictions(diet?: IDiet): Record<string, number[]> {
+    if(!diet) {
+      return  {
+        'carbohydrates': [0.45, 0.65],
+        'proteins': [0.1, 0.35],
+        'fats': [0.2, 0.35],
+      };
+    }
+    return  {
+      'carbohydrates': [diet.carbMin/100, diet.carbMax/100],
+      'proteins': [diet.protMin/100, diet.protMax/100],
+      'fats': [diet.fatsMin/100, diet.fatsMax/100],
+    }
+  }
+
   @Action(SetAsCurrentBasket)
   setAsCurrentBasket(ctx: StateContext<ICurrentBasketState>, action: SetAsCurrentBasket) {
     const basketData = action.payload;
     ctx.patchState({
       basketID: basketData.bucketID,
+      name: basketData.name,
       productBasket: basketData.optimization.product_bucket,
       general: basketData.optimization.general,
       isSaved: !!basketData.bucketID,
@@ -96,19 +113,27 @@ export class CurrentBasketState {
   }
 
   @Action(GetBasketById)
-  getBasketById(ctx: StateContext<ICurrentBasketState>, action: GetBasketById) {
-    const baskets = this.store
-      .selectSnapshot<IBasketsListState>(store => store[stateNames.basketsList])
-      .list;
-    const currentBasket = baskets.find(basket => basket.id == action.payload.basketID)
-    if (currentBasket) {
-      ctx.patchState({
-        basketID: currentBasket.id,
-        productBasket: currentBasket.products.product_bucket,
-        general: currentBasket.products.general,
-        isSaved: true,
-      });
-    }
+  getBasketById(ctx: StateContext<ICurrentBasketState>, action: GetBasketById): Observable<any> {
+    return this.optimizationService.getProductBasket(action.payload.basketID)
+      .pipe(
+        tap(currentBasket => {
+          if (currentBasket) {
+            console.log(currentBasket);
+            ctx.patchState({
+              basketID: currentBasket.id,
+              name: currentBasket.name,
+              productBasket: currentBasket.products.product_bucket,
+              general: currentBasket.products.general,
+              isSaved: true,
+            });
+          }
+        })
+      )
+    // const baskets = this.store
+    //   .selectSnapshot<IBasketsListState>(store => store[stateNames.basketsList])
+    //   .list;
+    // const currentBasket = baskets.find(basket => basket.id == action.payload.basketID)
+
     // this.localStorageService.set('new', ctx.getState());
   }
 }

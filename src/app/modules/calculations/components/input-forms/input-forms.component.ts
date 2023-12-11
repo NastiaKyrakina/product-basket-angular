@@ -6,9 +6,13 @@ import { Router } from '@angular/router';
 import { finalize, Observable, Subject, takeUntil } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
 import { CalculationsService } from '../../servers/calculations.service';
-import { ICalculations, Sex } from '../../models/calculations';
+import { ICalculations, IDiet, PhysicalActivityLevel, Sex } from '../../models/calculations';
 import { CalculationsState, ICalculationsState } from '../../../../state/baskets/calculations/calculations.state';
 import { SetBasketFormData } from '../../../../state/baskets/calculations/calculations.actions';
+import { DietService } from '../../../../core/servers/diet.service';
+import { PERIOD_TO_DAYS } from '../../constants/constants';
+import { ProductsService } from '../../../../core/servers/products.service';
+import { ICategory } from '../../../../../models/products';
 
 @Component({
   selector: 'app-input-forms',
@@ -23,12 +27,10 @@ export class InputFormsComponent implements OnInit, OnDestroy {
   // @ts-ignore
   calculationsGroup: FormGroup;
 
-  // @ts-ignore
-  basketForm: FormGroup;
-  // @ts-ignore
-  userForm: FormGroup;
-  // @ts-ignore
-  userWorkForm: FormGroup;
+  basketForm!: FormGroup;
+  userForm!: FormGroup;
+  userWorkForm!: FormGroup;
+  dietForm!: FormGroup;
 
   isEditable = true;
   optimizationInProgress = false;
@@ -36,13 +38,17 @@ export class InputFormsComponent implements OnInit, OnDestroy {
   energyPerDay!: number;
   userMIT!: number;
 
+  diets: IDiet[] = [];
+  categories: ICategory[] = [];
+
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
     private store: Store,
     private router: Router,
-    private calculationsService: CalculationsService,
+    private dietsService: DietService,
+    private productsService: ProductsService,
   ) {}
 
   ngOnInit() {
@@ -52,10 +58,12 @@ export class InputFormsComponent implements OnInit, OnDestroy {
     this.basketForm = this.getBasketForm();
     this.userForm = this.getUserForm();
     this.userWorkForm = this.getUserWorkForm();
+    this.dietForm = this.getDietForm();
     this.calculationsGroup = this.fb.group({
       basket: this.basketForm,
       user: this.userForm,
       userWork: this.userWorkForm,
+      dietForm: this.dietForm,
     });
 
     this.calculationsForm$
@@ -64,12 +72,24 @@ export class InputFormsComponent implements OnInit, OnDestroy {
         this.energyPerDay = calculationsForm.energyAmount;
         this.userMIT = calculationsForm.MIT;
       });
+
+    this.dietsService.getDiets()
+      .subscribe(diets => this.diets = diets);
+
+    this.productsService.getCategories()
+      .subscribe(categories => this.categories = categories);
   }
 
   getBasketForm(): FormGroup {
     return this.fb.group({
-      term: ['week', [Validators.required]],
-      maxSum: [1000, [Validators.required, Validators.min(0), Validators.max(20000)]],
+      term: [1, [Validators.required]],
+      maxSum: [120, [Validators.required, Validators.min(0), Validators.max(20000)]],
+    });
+  }
+  getDietForm(): FormGroup {
+    return this.fb.group({
+      dietId: [1, [Validators.required]],
+      categoriesToExclude: [[], ],
     });
   }
 
@@ -84,19 +104,21 @@ export class InputFormsComponent implements OnInit, OnDestroy {
 
   getUserWorkForm(): FormGroup {
     return this.fb.group({
-      activityLevel: ['', [Validators.required]],
+      activityLevel: [PhysicalActivityLevel.medium, [Validators.required]],
     });
   }
 
   optimizeProductBasket(): void {
     this.optimizationInProgress = true;
-    this.store.dispatch(new OptimizeBasketAndSetAsCurrent({}))
-      .pipe(
-        finalize(() => this.optimizationInProgress = false)
-      )
-      .subscribe(
-        () => this.router.navigateByUrl('baskets/new')
-      );
+    this.store.dispatch(new SetBasketFormData(this.getBasketFormData())).subscribe(() => {
+      this.store.dispatch(new OptimizeBasketAndSetAsCurrent({}))
+        .pipe(
+          finalize(() => this.optimizationInProgress = false)
+        )
+        .subscribe(
+          () => this.router.navigateByUrl('baskets/new')
+        );
+    })
   }
 
   goBack(stepper: MatStepper) {
@@ -109,6 +131,7 @@ export class InputFormsComponent implements OnInit, OnDestroy {
   }
 
   onDoneInteract(): void {
+    console.log(this.getBasketFormData());
     this.store.dispatch(new SetBasketFormData(this.getBasketFormData()));
   }
 
@@ -119,6 +142,8 @@ export class InputFormsComponent implements OnInit, OnDestroy {
         ...this.userForm.value,
       },
       ...this.basketForm.value,
+      term: PERIOD_TO_DAYS[this.basketForm.value.term] || 1,
+      diet: this.diets.find(diet => diet.id === this.dietForm.value.dietId)
     }
   }
 

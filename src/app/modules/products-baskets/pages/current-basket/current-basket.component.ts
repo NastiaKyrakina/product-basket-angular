@@ -6,6 +6,7 @@ import { IShopProduct } from '../../../../../models/products';
 import { IOptimizationGeneral } from '../../../../../models/optimization';
 import { GetBasketById, InitBasketState } from '../../../../state/baskets/current-basket/current-basket.actions';
 import { ActivatedRoute } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-current-basket',
@@ -19,7 +20,8 @@ export class CurrentBasketComponent implements OnInit, OnDestroy {
   products: IShopProduct[] = [];
   general!: IOptimizationGeneral | null;
   isSaved = false;
-
+  basketControl = new FormControl('', [Validators.required]);
+  id!: number;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -32,6 +34,7 @@ export class CurrentBasketComponent implements OnInit, OnDestroy {
         const id = params.get('id');
         console.log(id);
         if (id) {
+          this.id = +id;
           this.store.dispatch(new GetBasketById({basketID: +id}));
         }
       })
@@ -49,6 +52,7 @@ export class CurrentBasketComponent implements OnInit, OnDestroy {
   }
 
   setBasketInfo(basket: ICurrentBasketState): void {
+    this.basketControl.setValue(basket.name);
     ({ productBasket: this.products, general: this.general, isSaved: this.isSaved } = basket);
   }
 
@@ -57,4 +61,7 @@ export class CurrentBasketComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  saveBasket(): void {
+
+  }
 }

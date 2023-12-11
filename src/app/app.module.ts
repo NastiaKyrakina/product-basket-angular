@@ -19,17 +19,17 @@ import { CalculationsState } from './state/baskets/calculations/calculations.sta
 import { UserState } from './state/user/user.state';
 import { AuthInterceptor } from './core/interseptors/auth.interceptor';
 import { BasketsListState } from './state/baskets/baskets-list/current-basket.state';
-import { QuestionsDialogComponent } from './core/components/questions-dialog/questions-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { ProductsModule } from './modules/products/products.module';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPanelComponent,
-    QuestionsDialogComponent
+    MainPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +48,9 @@ import { ProductsModule } from './modules/products/products.module';
     ReactiveFormsModule,
     MatDialogModule,
     MatInputModule,
-    ProductsModule
+    ProductsModule,
+    MatButtonToggleModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

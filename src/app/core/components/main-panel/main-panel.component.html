@@ -5,12 +5,13 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Меню</mat-toolbar>
     <mat-nav-list>
-      <a  *ngIf="isAuthUser$ | async" mat-list-item routerLink="baskets">Профіль користувача</a>
-      <a mat-list-item routerLink="calculations">Продуктовий кошик</a>
-      <a mat-list-item routerLink="products">Список продуктів</a>
-      <a mat-list-item routerLink="restrictions">Список обмежень</a>
-      <a *ngIf="!(isAuthUser$ | async)" mat-list-item routerLink="auth">Авторизація</a>
-      <a mat-list-item routerLink="about">Про проєкт</a>
+      <a  *ngIf="isAuthUser$ | async" mat-list-item routerLink="baskets" routerLinkActive="active-link">Профіль користувача</a>
+      <a mat-list-item routerLink="calculations" routerLinkActive="active-link">Продуктовий кошик</a>
+      <a mat-list-item routerLink="products" routerLinkActive="active-link">Список продуктів</a>
+      <a mat-list-item routerLink="restrictions" routerLinkActive="active-link">Список обмежень</a>
+      <a *ngIf="!(isAuthUser$ | async)" mat-list-item routerLink="auth" routerLinkActive="active-link">Авторизація</a>
+      <a mat-list-item routerLink="about" routerLinkActive="active-link">Про додаток</a>
+      <mat-slide-toggle class="theme-selector" [checked]="isDarkTheme" (change)="changeTheme($event.checked)">Темні тона</mat-slide-toggle>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

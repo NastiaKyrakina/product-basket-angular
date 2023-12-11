@@ -1,8 +1,20 @@
+<div class="basket-header">
+  <mat-form-field class="basket-name-control" appearance="fill" floatLabel="always">
+    <mat-label>Назва кошика</mat-label>
+    <input [formControl]="basketControl" matInput required type="text" name="username" autocomplete="false">
+  </mat-form-field>
+  <button class="basket-save"
+          mat-raised-button
+          color="warn"
+          (click)="saveBasket()">
+    Зберегти
+  </button>
+</div>
 <mat-tab-group>
   <mat-tab label="Результати обчислень">
     <app-optimization-result [general]="general"></app-optimization-result>
   </mat-tab>
   <mat-tab label="Продуктовий кошик">
-    <app-basket-products [products]="products"></app-basket-products>
+    <app-basket-products [products]="products" [id]="id"></app-basket-products>
   </mat-tab>
 </mat-tab-group>

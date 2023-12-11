@@ -1,21 +1,21 @@
-<fieldset [formGroup]="basketForm" class="fields">
-  <h3 class="headline">Введіть дані щодо терміну розрахунку</h3>
-
+<h3 class="headline">На який термін та бюджет розраховувати?</h3>
+<fieldset [formGroup]="basketForm" class="fields form-controls">
   <app-control-wrapper name="{{FA_ICONS.calendar}}">
-    <mat-form-field appearance="fill">
-      <mat-label>Термін розрахунку</mat-label>
-      <mat-select formControlName="term" required>
-        <mat-option value="1">Доба</mat-option>
-        <mat-option value="7">Тиждень</mat-option>
-        <mat-option value="30">Місяць</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <mat-button-toggle-group formControlName="term" aria-label="Термін розрахунку" class="form-field" >
+      <mat-button-toggle [value]="1">Доба</mat-button-toggle>
+      <mat-button-toggle [value]="7">Тиждень</mat-button-toggle>
+      <mat-button-toggle [value]="30">Місяць</mat-button-toggle>
+    </mat-button-toggle-group>
   </app-control-wrapper>
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Кількість діб</mat-label>
+    <input formControlName="term" matInput required type="number" class="example-right-align" placeholder="1">
+  </mat-form-field>
   <app-control-wrapper name="{{FA_ICONS.money}}">
     <mat-form-field appearance="fill" floatLabel="always">
-      <mat-label>Максимальна вартість кошику</mat-label>
+      <mat-label>Максимальний бюджет</mat-label>
       <input formControlName="maxSum" matInput required type="number" class="example-right-align" placeholder="0">
-      <span matPrefix>$&nbsp;</span>
+      <span matPrefix>₴&nbsp;</span>
       <span matSuffix>.00</span>
     </mat-form-field>
   </app-control-wrapper>

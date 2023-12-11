@@ -18,7 +18,7 @@
 
 .calc-product-basket {
   margin-left: auto;
-  opacity: 0.8;
+  opacity: 0.9;
   transition: opacity 0.3s ease-in-out;
 
   &:hover {
@@ -28,4 +28,13 @@
 
 .main-content {
   padding: 20px 25px;
+}
+
+.theme-selector {
+  margin-top: 20px;
+  margin-left: 16px;
+}
+
+.active-link {
+  color: var(--primary);
 }

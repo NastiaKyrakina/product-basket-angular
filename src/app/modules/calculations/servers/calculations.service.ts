@@ -28,7 +28,8 @@ export class CalculationsService {
       - (5 * userData.years)
       + ENERGY_GENDER[userData.sex];
 
-    return Math.round(this.getActivityDependency(energyPerDay, userData.activityLevel));
+    const kkalPerDay = Math.round(this.getActivityDependency(energyPerDay, userData.activityLevel));
+    return kkalPerDay;
   }
 
   //ІМТ = m:h2  індекс маси тіла

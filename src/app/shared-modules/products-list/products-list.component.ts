@@ -22,6 +22,7 @@ export class ProductsListComponent implements OnInit {
 
   @Input() name!: string;
   @Input() products: IShopProduct[] = [];
+  @Input() defaultTable = true;
 
   constructor(
     public dialog: MatDialog,

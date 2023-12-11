@@ -1,15 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Select } from '@ngxs/store';
 import { CalculationsState } from '../../../state/baskets/calculations/calculations.state';
 import { UserState } from '../../../state/user/user.state';
-import { SecurityService } from '../../servers/security.service';
-import { ProductDialogComponent } from '../../../modules/products/components/product-dialog/product-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { QuestionsDialogComponent } from '../questions-dialog/questions-dialog.component';
-import { AccessCounterService } from '../../helpers/access-counter.service';
+import { Sex } from '../../../modules/calculations/models/calculations';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { LocalStorageService } from '../../servers/local-storage.service';
 
 @Component({
   selector: 'app-main-panel',
@@ -21,6 +20,8 @@ export class MainPanelComponent implements OnInit, OnDestroy {
   @Select(CalculationsState.isActive) isActive$!: Observable<boolean>;
   @Select(UserState.isAuthUser) isAuthUser$!: Observable<boolean>;
 
+  isDarkTheme!: boolean;
+
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -31,28 +32,32 @@ export class MainPanelComponent implements OnInit, OnDestroy {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private accessCounterService: AccessCounterService,
-    private securityService: SecurityService,
     public dialog: MatDialog,
+    private renderer: Renderer2,
+    private local: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    this.accessCounterService
-      .getTimer()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => this.openQuestionsDialog())
-
+    this.changeTheme(!!this.local.get('dark-theme'));
   }
 
-  openQuestionsDialog(): void {
-    this.securityService.getQuestions()
-      .subscribe(questions => {
-        this.dialog.open<QuestionsDialogComponent>(QuestionsDialogComponent, {
-          data: {
-            questions,
-          },
-        });
-      });
+  changeTheme(checked: boolean): void {
+    const prevTheme = this.getPrevTheme();
+    this.isDarkTheme = checked;
+
+    const theme = this.getTheme();
+    this.local.set('dark-theme', this.isDarkTheme);
+
+    this.renderer.removeClass(document.body, prevTheme);
+    this.renderer.addClass(document.body, theme);
+  }
+
+  getTheme(): string {
+    return this.isDarkTheme ? 'dark-theme' : 'light-theme';
+  }
+
+  getPrevTheme(): string {
+    return this.isDarkTheme ? 'dark-theme' : 'light-theme';
   }
 
   ngOnDestroy(): void {

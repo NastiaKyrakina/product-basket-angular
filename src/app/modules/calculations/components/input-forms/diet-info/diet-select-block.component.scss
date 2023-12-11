@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  padding-bottom: 1.34375em;
+}
+
+.selection-block {
+  margin-top: 15px;
+}
+
+.exclude-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .mat-button-toggle-checked {
+    position: relative;
+
+    &:after {
+      content: '';
+      background: red;
+      display: block;
+      position: absolute;
+      /* width: 100%; */
+      height: 1px;
+      transform: rotate(12deg);
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    &:before {
+      content: '';
+      background: red;
+      display: block;
+      position: absolute;
+      /* width: 100%; */
+      height: 1px;
+      transform: rotate(-12deg);
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}
