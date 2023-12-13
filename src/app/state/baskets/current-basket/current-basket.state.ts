@@ -75,7 +75,7 @@ export class CurrentBasketState {
   optimizeBasketAndSetAsCurrent(ctx: StateContext<ICurrentBasketState>, action: OptimizeBasketAndSetAsCurrent): Observable<any> {
     const {diet, ...formData} = this.store.selectSnapshot<ICalculationsState>(store => store[stateNames.calculations]);
    const energyRestrictions = this.getEnergyRestrictions(diet);
-    return this.optimizationService.optimizeProductsList({...formData, dietId: diet?.id, energyRestrictions})
+    return this.optimizationService.getOptimizationResults({...formData, dietId: diet?.id, energyRestrictions})
       .pipe(
         tap(() => ctx.dispatch(new ResetFormData())),
         tap(

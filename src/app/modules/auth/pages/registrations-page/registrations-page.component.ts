@@ -4,7 +4,7 @@ import { Store } from '@ngxs/store';
 import { RegisterUserAction } from '../../../../state/user/user.actions';
 import { finalize } from 'rxjs';
 import { ERRORS_TEXT } from '../login-page/login-page.component';
-import { ICalculationsUser, PhysicalActivityLevel, Sex } from '../../../calculations/models/calculations';
+import { IUserParams, ActivityLevel, Sex } from '../../../calculations/models/calculations';
 import { stateNames } from '../../../../state/consts/state-names';
 import { ICalculationsState } from '../../../../state/baskets/calculations/calculations.state';
 
@@ -56,13 +56,13 @@ export class RegistrationsPageComponent implements OnInit {
     })
   }
 
-  setDataToUserForm(user: ICalculationsUser): void {
+  setDataToUserForm(user: IUserParams): void {
     this.userInfoForm.patchValue({
       ...user
     });
   }
 
-  getCalcData(): ICalculationsUser | null {
+  getCalcData(): IUserParams | null {
     return this.store.selectSnapshot<ICalculationsState>(store => store[stateNames.calculations]).user;
   }
 
@@ -90,7 +90,7 @@ export class RegistrationsPageComponent implements OnInit {
       );
   }
 
-  selectActivityLevel(activityLevel: PhysicalActivityLevel) {
+  selectActivityLevel(activityLevel: ActivityLevel) {
     this.userInfoForm.patchValue({activityLevel})
   }
 }

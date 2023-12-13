@@ -6,7 +6,7 @@ import { BasketsListState } from '../../../../state/baskets/baskets-list/current
 import { Observable } from 'rxjs';
 import { IProductBasket } from '../../../../../models/http-api';
 import { CalculationsState, ICalculationsState } from '../../../../state/baskets/calculations/calculations.state';
-import { ICalculationsUser } from '../../../calculations/models/calculations';
+import { IUserParams } from '../../../calculations/models/calculations';
 import { UserState } from '../../../../state/user/user.state';
 import { IUser } from '../../../auth/models/auth';
 import { LogoutAction } from '../../../../state/user/user.actions';

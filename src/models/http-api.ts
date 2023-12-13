@@ -1,7 +1,7 @@
 import { IProduct, IShopProduct } from './products';
 import { IOptimizationGeneral } from './optimization';
 
-export interface IOptimizationResult {
+export interface IProductBasketResult {
   bucketID?: number;
   name?: string;
   optimization: {

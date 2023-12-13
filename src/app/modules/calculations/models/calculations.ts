@@ -1,4 +1,4 @@
-export enum PhysicalActivityLevel {
+export enum ActivityLevel {
   lowest = 1,
   low,
   medium,
@@ -11,16 +11,16 @@ export enum Sex {
   Female = 'F',
 }
 
-export interface ICalculationsUser {
+export interface IUserParams {
   sex: Sex;
   years: number;
   height: number;
   weight: number;
-  activityLevel: PhysicalActivityLevel;
+  activityLevel: ActivityLevel;
 }
 
 export interface ICalculations {
-  user: ICalculationsUser;
+  user: IUserParams;
   term: number;
   maxSum: number;
   diet: IDiet;

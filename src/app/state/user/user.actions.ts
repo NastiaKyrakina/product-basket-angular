@@ -1,6 +1,6 @@
 import { IChangePasswordBody, ILoginBody, IRegisterBody } from '../../modules/auth/models/auth';
 import { stateNames } from '../consts/state-names';
-import { ICalculationsUser } from '../../modules/calculations/models/calculations';
+import { IUserParams } from '../../modules/calculations/models/calculations';
 
 
 export class InitAuthState {
@@ -31,12 +31,12 @@ export class ChangePasswordAction {
 
 export class RegisterUserAction {
   static readonly type = `[${stateNames.user}] register user`;
-  constructor(public payload: { user: IRegisterBody, calculations: ICalculationsUser }) {}
+  constructor(public payload: { user: IRegisterBody, calculations: IUserParams }) {}
 }
 
 export class SaveUserCalcDataAction {
   static readonly type = `[${stateNames.user}] save user calc data`;
-  constructor(public payload: ICalculationsUser) {}
+  constructor(public payload: IUserParams) {}
 }
 
 export class GetUserCalcDataAction {

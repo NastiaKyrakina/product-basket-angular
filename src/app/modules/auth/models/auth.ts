@@ -1,4 +1,4 @@
-import { ICalculationsUser } from '../../calculations/models/calculations';
+import { IUserParams } from '../../calculations/models/calculations';
 
 export interface ILoginBody {
   username?: string;

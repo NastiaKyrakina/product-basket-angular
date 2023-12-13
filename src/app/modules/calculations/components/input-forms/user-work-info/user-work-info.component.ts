@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { PhysicalActivityLevel } from '../../../models/calculations';
+import { ActivityLevel } from '../../../models/calculations';
 
 @Component({
   selector: 'app-user-work-info',
@@ -12,7 +12,7 @@ export class UserWorkInfoComponent {
   // @ts-ignore
   @Input() userForm: FormGroup;
 
-  selectWorkType(workType: PhysicalActivityLevel): void {
+  selectWorkType(workType: ActivityLevel): void {
     this.userForm.get('activityLevel')?.patchValue(workType)
   }
 }

@@ -14,7 +14,6 @@ export class DietSelectBlockComponent {
   @Input() dietForm: FormGroup;
   @Input() diets: IDiet[] = [];
   @Input() categories: ICategory[] = [];
-  displayedColumns: string[] = ['name','description'];
 
   selectWorkType(dietType: number): void {
     this.dietForm.get('dietId')?.setValue(dietType);

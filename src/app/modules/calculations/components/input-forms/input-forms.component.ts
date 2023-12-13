@@ -5,8 +5,8 @@ import { Select, Selector, Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { finalize, Observable, Subject, takeUntil } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
-import { CalculationsService } from '../../servers/calculations.service';
-import { ICalculations, IDiet, PhysicalActivityLevel, Sex } from '../../models/calculations';
+import { UserCalculationsService } from '../../servers/user-calculations.service';
+import { ICalculations, IDiet, ActivityLevel, Sex } from '../../models/calculations';
 import { CalculationsState, ICalculationsState } from '../../../../state/baskets/calculations/calculations.state';
 import { SetBasketFormData } from '../../../../state/baskets/calculations/calculations.actions';
 import { DietService } from '../../../../core/servers/diet.service';
@@ -104,7 +104,7 @@ export class InputFormsComponent implements OnInit, OnDestroy {
 
   getUserWorkForm(): FormGroup {
     return this.fb.group({
-      activityLevel: [PhysicalActivityLevel.medium, [Validators.required]],
+      activityLevel: [ActivityLevel.medium, [Validators.required]],
     });
   }
 

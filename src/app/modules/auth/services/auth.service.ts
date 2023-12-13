@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ICalculationsState } from '../../../state/baskets/calculations/calculations.state';
 import { Observable } from 'rxjs';
-import { IOptimizationResult } from '../../../../models/http-api';
+import { IProductBasketResult } from '../../../../models/http-api';
 import { environment } from '../../../../environments/environment';
 import {
   IChangePasswordBody,
@@ -12,7 +12,7 @@ import {
   IRegisterBody,
   IUser
 } from '../models/auth';
-import { ICalculationsUser, PhysicalActivityLevel, Sex } from '../../calculations/models/calculations';
+import { IUserParams, ActivityLevel, Sex } from '../../calculations/models/calculations';
 import { map } from 'rxjs/operators';
 import { PasswordEncoder } from '../helpers/PasswordEncode';
 
@@ -46,7 +46,7 @@ export class AuthService {
     return this.http.get<IUser>(`${environment.apiURL}auth/user`);
   }
 
-  addUserCalcData(calculationsUserData: ICalculationsUser): Observable<ICalculationsUser> {
+  addUserCalcData(calculationsUserData: IUserParams): Observable<IUserParams> {
     const body = {
       sex: calculationsUserData.sex,
       years: calculationsUserData.years,
@@ -60,7 +60,7 @@ export class AuthService {
       );
   }
 
-  getUserCalcData(): Observable<ICalculationsUser> {
+  getUserCalcData(): Observable<IUserParams> {
     return this.http.get<any>(`${environment.apiURL}products/user`)
       .pipe(
         map(data => ({...data, activityLevel: data.activity_level}))

@@ -3,12 +3,12 @@ import { stateNames } from '../../consts/state-names';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { LocalStorageService } from '../../../core/servers/local-storage.service';
-import { ICalculationsUser, IDiet } from '../../../modules/calculations/models/calculations';
+import { IUserParams, IDiet } from '../../../modules/calculations/models/calculations';
 import { InitBasketState, ResetFormData, SetBasketFormData, SetUserCalcData } from './calculations.actions';
-import { CalculationsService } from '../../../modules/calculations/servers/calculations.service';
+import { UserCalculationsService } from '../../../modules/calculations/servers/user-calculations.service';
 
 export interface ICalculationsState {
-  user: ICalculationsUser | null;
+  user: IUserParams | null;
   term: number;
   maxSum: number;
   energyAmount: number;
@@ -46,7 +46,7 @@ export class CalculationsState {
   }
 
   @Selector()
-  static user(state: ICalculationsState): ICalculationsUser | null {
+  static user(state: ICalculationsState): IUserParams | null {
     return state.user;
   }
 
@@ -56,7 +56,7 @@ export class CalculationsState {
   }
 
   constructor(
-    private calculationsService: CalculationsService,
+    private calculationsService: UserCalculationsService,
     private localStorageService: LocalStorageService,
   ) {}
 
@@ -72,8 +72,8 @@ export class CalculationsState {
   setAsCurrentBasket(ctx: StateContext<ICalculationsState>, action: SetBasketFormData) {
     ctx.patchState({
       ...action.payload,
-      energyAmount: this.calculationsService.getDailyCCalAmount(action.payload.user),
-      MIT: this.calculationsService.getMIT(action.payload.user),
+      energyAmount: this.calculationsService.getDailyEnergy(action.payload.user),
+      MIT: this.calculationsService.getBMI(action.payload.user),
       isActive: true,
     });
     this.localStorageService.set(this.STORE_KEY, ctx.getState());
@@ -83,8 +83,8 @@ export class CalculationsState {
   setUserCalcData(ctx: StateContext<ICalculationsState>, action: SetUserCalcData) {
     ctx.patchState({
       user: action.payload,
-      energyAmount: this.calculationsService.getDailyCCalAmount(action.payload),
-      MIT: this.calculationsService.getMIT(action.payload),
+      energyAmount: this.calculationsService.getDailyEnergy(action.payload),
+      MIT: this.calculationsService.getBMI(action.payload),
     });
     this.localStorageService.set(this.STORE_KEY, ctx.getState());
   }

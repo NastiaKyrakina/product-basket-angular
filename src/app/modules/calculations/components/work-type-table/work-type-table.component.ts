@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PHYSIC_LEVELS } from '../../../../core/constants/calculations';
-import { PhysicalActivityLevel } from '../../models/calculations';
+import { ActivityLevel } from '../../models/calculations';
 
 @Component({
   selector: 'app-work-type-table',
@@ -9,13 +9,13 @@ import { PhysicalActivityLevel } from '../../models/calculations';
 })
 export class WorkTypeTableComponent {
 
-  @Input() selectedActivityLevel!: PhysicalActivityLevel;
-  @Output() activityLevelSelected: EventEmitter<PhysicalActivityLevel> = new EventEmitter<PhysicalActivityLevel>();
+  @Input() selectedActivityLevel!: ActivityLevel;
+  @Output() activityLevelSelected: EventEmitter<ActivityLevel> = new EventEmitter<ActivityLevel>();
 
   dataSource = PHYSIC_LEVELS;
   displayedColumns: string[] = ['icon','description'];
 
-  onRowClick(selectedActivityLevel: PhysicalActivityLevel): void {
+  onRowClick(selectedActivityLevel: ActivityLevel): void {
     this.selectedActivityLevel = selectedActivityLevel;
     this.activityLevelSelected.emit(this.selectedActivityLevel);
   }
