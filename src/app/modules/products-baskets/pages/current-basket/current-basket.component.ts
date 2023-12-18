@@ -7,6 +7,7 @@ import { IOptimizationGeneral } from '../../../../../models/optimization';
 import { GetBasketById, InitBasketState } from '../../../../state/baskets/current-basket/current-basket.actions';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { OptimizationService } from '../../../../core/servers/optimization.service';
 
 @Component({
   selector: 'app-current-basket',
@@ -27,12 +28,12 @@ export class CurrentBasketComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     private activatedRoute: ActivatedRoute,
+    private optimizationService: OptimizationService,
   ) {
     this.activatedRoute.paramMap
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(params => {
         const id = params.get('id');
-        console.log(id);
         if (id) {
           this.id = +id;
           this.store.dispatch(new GetBasketById({basketID: +id}));
@@ -62,6 +63,10 @@ export class CurrentBasketComponent implements OnInit, OnDestroy {
   }
 
   saveBasket(): void {
+    this.optimizationService.updateProductBasketName(this.id, this.basketControl.value)
+      .subscribe(res => {
+        console.log(res);
+      })
 
   }
 }

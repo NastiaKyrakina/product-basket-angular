@@ -6,16 +6,27 @@
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
   </ng-container>
   <ng-container matColumnDef="period">
-    <th mat-header-cell *matHeaderCellDef>Період</th>
+    <th mat-header-cell *matHeaderCellDef>Період (діб)</th>
     <td mat-cell *matCellDef="let element">{{ element.period }}</td>
   </ng-container>
   <ng-container matColumnDef="maxSum">
-    <th mat-header-cell *matHeaderCellDef>Максимальна сума</th>
-    <td mat-cell *matCellDef="let element">{{ element.maxSum }} грн</td>
+    <th mat-header-cell *matHeaderCellDef>Сума</th>
+    <td mat-cell *matCellDef="let element">{{ element.products.general.price | number: '1.0-0' }} грн</td>
   </ng-container>
   <ng-container matColumnDef="creationDate">
     <th mat-header-cell *matHeaderCellDef>Дата створення</th>
     <td mat-cell *matCellDef="let element">{{ element.creationDate | date : 'M/d/yy, HH:mm' }}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button class="actions"
+              mat-icon-button
+              color="primary"
+              (click)="$event.stopPropagation(); removeBasket(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; let element; columns: displayedColumns;" [routerLink]="element.id"></tr>

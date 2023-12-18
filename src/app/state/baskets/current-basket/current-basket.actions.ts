@@ -1,5 +1,5 @@
 import { stateNames } from '../../consts/state-names';
-import { IProductBasketResult } from '../../../../models/http-api';
+import { IProductBasket, IProductBasketResult } from '../../../../models/http-api';
 
 export class InitBasketState {
   static readonly type = `[${stateNames.currentBasket}] init basket state`;
@@ -13,7 +13,7 @@ export class OptimizeBasketAndSetAsCurrent {
 
 export class SetAsCurrentBasket {
   static readonly type = `[${stateNames.currentBasket}] set basket as current`;
-  constructor(public payload: IProductBasketResult) {}
+  constructor(public payload: IProductBasket) {}
 }
 
 export class GetBasketById {

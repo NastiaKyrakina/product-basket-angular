@@ -103,11 +103,11 @@ export class CurrentBasketState {
   setAsCurrentBasket(ctx: StateContext<ICurrentBasketState>, action: SetAsCurrentBasket) {
     const basketData = action.payload;
     ctx.patchState({
-      basketID: basketData.bucketID,
+      basketID: basketData.id,
       name: basketData.name,
-      productBasket: basketData.optimization.product_bucket,
-      general: basketData.optimization.general,
-      isSaved: !!basketData.bucketID,
+      productBasket: basketData.products.product_bucket,
+      general: basketData.products.general,
+      isSaved: !!basketData.id,
     });
     this.localStorageService.set('new', ctx.getState());
   }
@@ -118,7 +118,6 @@ export class CurrentBasketState {
       .pipe(
         tap(currentBasket => {
           if (currentBasket) {
-            console.log(currentBasket);
             ctx.patchState({
               basketID: currentBasket.id,
               name: currentBasket.name,

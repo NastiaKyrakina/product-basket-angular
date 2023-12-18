@@ -13,6 +13,7 @@ import { DietService } from '../../../../core/servers/diet.service';
 import { PERIOD_TO_DAYS } from '../../constants/constants';
 import { ProductsService } from '../../../../core/servers/products.service';
 import { ICategory } from '../../../../../models/products';
+import { stateNames } from '../../../../state/consts/state-names';
 
 @Component({
   selector: 'app-input-forms',
@@ -95,10 +96,10 @@ export class InputFormsComponent implements OnInit, OnDestroy {
 
   getUserForm(): FormGroup {
     return this.fb.group({
-      height: [160, [Validators.required]],
-      weight: [50, [Validators.required]],
-      years: [30, [Validators.required]],
-      sex: [Sex.Male, [Validators.required]],
+      height: [158, [Validators.required]],
+      weight: [57, [Validators.required]],
+      years: [25, [Validators.required]],
+      sex: [Sex.Female, [Validators.required]],
     });
   }
 
@@ -116,7 +117,10 @@ export class InputFormsComponent implements OnInit, OnDestroy {
           finalize(() => this.optimizationInProgress = false)
         )
         .subscribe(
-          () => this.router.navigateByUrl('baskets/new')
+          res => {
+            const id = res[stateNames.currentBasket].basketID;
+            this.router.navigateByUrl(`baskets/${id}`)
+          }
         );
     })
   }
@@ -131,7 +135,6 @@ export class InputFormsComponent implements OnInit, OnDestroy {
   }
 
   onDoneInteract(): void {
-    console.log(this.getBasketFormData());
     this.store.dispatch(new SetBasketFormData(this.getBasketFormData()));
   }
 
@@ -142,7 +145,7 @@ export class InputFormsComponent implements OnInit, OnDestroy {
         ...this.userForm.value,
       },
       ...this.basketForm.value,
-      term: PERIOD_TO_DAYS[this.basketForm.value.term] || 1,
+      term: this.basketForm.value.term,
       diet: this.diets.find(diet => diet.id === this.dietForm.value.dietId)
     }
   }

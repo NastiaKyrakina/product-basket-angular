@@ -17,8 +17,18 @@ export class OptimizationService {
 
 
   // Optimize Products List by user input
-  getOptimizationResults(body: ICalculationsState): Observable<IProductBasketResult> {
-    return this.http.post<IProductBasketResult>(`${environment.apiURL}products/optimization`, body);
+  getOptimizationResults(body: ICalculationsState): Observable<IProductBasket> {
+    return this.http.post<any>(`${environment.apiURL}products/optimization`, body)
+      .pipe(
+        map(basket => ({
+          id: basket.id,
+          name: basket.name,
+          period: basket.period,
+          maxSum: basket['max_sum'],
+          creationDate: basket['creation_date'],
+          products: JSON.parse(basket.products)
+        }))
+      );
   }
 
   // Get Product Basket by ID
@@ -50,10 +60,29 @@ export class OptimizationService {
         })))
       );
   }
+
   // Get Product Baskets as File
   getProductAsFile(id: number, downloadAsFile: string): Observable<any> {
     return this.http.get<any>(`${environment.apiURL}products/product-backet/${id}?downloadAsFile=${downloadAsFile}`, {
       responseType: 'blob' as "json"
     });
+  }
+
+  updateProductBasketName(id: number, name: string): Observable<IProductBasket> {
+    return this.http.post<any>(`${environment.apiURL}products/product-backet/${id}`, { name })
+      .pipe(
+        map(basket => ({
+          id: basket.id,
+          name: basket.name,
+          period: basket.period,
+          maxSum: basket['max_sum'],
+          creationDate: basket['creation_date'],
+          products: JSON.parse(basket.products)
+        }))
+      );
+  }
+
+  removeProductBasket(id: number): Observable<IProductBasket> {
+    return this.http.delete<any>(`${environment.apiURL}products/product-backet/${id}`);
   }
 }

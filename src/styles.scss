@@ -42,7 +42,7 @@ $dark-app-theme: mat-dark-theme((
   @include angular-material-color($dark-app-theme);
 }
 
-.dark-theme{
+.dark-theme {
   --primary:  #{mat-color($app-primary-dark)};
   --accent:  #{mat-color($app-accent-dark)};
   --warn:  #{mat-color($app-warn-dark)};
@@ -73,13 +73,15 @@ b {
   font-weight: 500 !important;
 }
 
-.pie-label {
-  fill: white;
-}
-
 .mat-expansion-panel.selected {
   background: var(--primary);
   .mat-expansion-panel-header-title, .mat-expansion-panel-body {
     color: white;
+  }
+}
+
+.dark-theme {
+  .pie-label {
+    fill: white;
   }
 }

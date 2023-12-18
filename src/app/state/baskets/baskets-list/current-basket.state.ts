@@ -2,7 +2,7 @@ import { stateNames } from '../../consts/state-names';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext, Store } from '@ngxs/store';
 import {
-  GetUserBaskets,
+  GetUserBaskets, RemoveBaskets,
 } from './current-basket.actions';
 import { Observable, tap } from 'rxjs';
 import { OptimizationService } from '../../../core/servers/optimization.service';
@@ -43,6 +43,16 @@ export class BasketsListState {
       .pipe(
         tap(
           res => ctx.patchState({list: res})
+        ),
+      );
+  }
+
+  @Action(RemoveBaskets)
+  removeBaskets(ctx: StateContext<IBasketsListState>, action: RemoveBaskets): Observable<any> {
+    return this.optimizationService.removeProductBasket(action.payload)
+      .pipe(
+        tap(
+          res => ctx.dispatch(new GetUserBaskets())
         ),
       );
   }
