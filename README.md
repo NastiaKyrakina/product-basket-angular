@@ -1,5 +1,7 @@
 # ProductBasket
 
+Web-application to get recomentation for the grossery shopping. Application take on account customer requirments in daily kallories, preferences and food restrictions and build a related shopping list. 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.5.
 
 ## Development server
